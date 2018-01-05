@@ -74,21 +74,13 @@ bindsym $mod+Up exec xcalib -c
 bindsym $mod+Down exec xcalib -co 95 -a
 
 # Colors from Xresources
-set_from_resource $bg  i3wm.color0  #f0f0f0
-set_from_resource $fg  color2  #f0f0f0
-set_from_resource $bg2 color4  #f0f0f0
-set_from_resource $fg2 color4  #f0f0f0
-set_from_resource $bg3 color2  #f0f0f0
-set_from_resource $bg4 color6  #f0f0f0
-set_from_resource $fg3 i3wm.color7  #f0f0f0
+set_from_resource $bg  i3wm.background
+set_from_resource $border  i3wm.color0  #f0f0f0
+set_from_resource $fg  i3wm.foreground  #f0f0f0
 
 # class                 border  backgr. text indicator child_border
-client.focused          $bg     $bg    $fg  $bg   $fg3
-client.focused_inactive $fg3      $bg    $fg  $bg   $bg
-client.unfocused        $fg3      $bg    $fg  $bg   $bg
-client.urgent           $fg3      $bg    $fg  $bg   $bg
-client.placeholder      $fg3      $bg    $fg  $bg   $bg
-client.background       $fg3
+#client.focused          $border $bg     $bg  $border   $border
+client.focused          #209b49 $209b49 #ffffff $border $border
 
 # switch to workspace
 bindsym $mod4+1 workspace 1
@@ -169,13 +161,9 @@ for_window [class="^.*"] border pixel 2
 gaps inner 10
 gaps outer 0
 
-bindsym $mod+Shift+plus   gaps outer all plus 5
-bindsym $mod+Shift+minus  gaps outer all minus 5
-bindsym $mod+Shift+Escape gaps outer all set 23
-
-bindsym $mod+plus   gaps inner all plus 5
-bindsym $mod+minus  gaps inner all minus 5
-bindsym $mod+Escape gaps inner all set 30
+bindsym $mod+Shift+plus   gaps inner all plus 5
+bindsym $mod+Shift+minus  gaps inner all minus 5
+bindsym $mod+Shift+Escape gaps inner all set 10
 
 ## MEDIA CONTROLS ##
 # Pulse Audio controls
