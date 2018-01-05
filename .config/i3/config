@@ -31,12 +31,6 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
-#bindsym $mod+Left focus left
-#bindsym $mod+Down focus down
-#bindsym $mod+Up focus up
-#bindsym $mod+Right focus right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
@@ -68,18 +62,12 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-# Brightness control reset screen (100% brightness)
-bindsym $mod+Up exec xcalib -c
-# Brightness control down
-bindsym $mod+Down exec xcalib -co 95 -a
-
 # Colors from Xresources
 set_from_resource $bg  i3wm.background
 set_from_resource $border  i3wm.color0  #f0f0f0
 set_from_resource $fg  i3wm.foreground  #f0f0f0
 
 # class                 border  backgr. text indicator child_border
-#client.focused          $border $bg     $bg  $border   $border
 client.focused          #209b49 $209b49 #ffffff $border $border
 
 # switch to workspace
@@ -108,7 +96,7 @@ bindsym $mod4+Shift+0 move container to workspace 10
 
 # assign to workspace
 assign [class="Google-chrome"] 2
-assign [class="MPV"] 4
+assign [class="mpv"] 4
 assign [class="Telegram"] 4
 
 # reload the configuration file
@@ -125,10 +113,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym j resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
