@@ -2,27 +2,32 @@
 " Version: Alpha (Copied from dougblack)
 " Vim Plug {{{
 call plug#begin('~/.vim/plugged')
-Plug 'bling/vim-airline'
+"Plug 'bling/vim-airline'
 Plug 'kien/ctrlp.vim'
 Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-"Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'vimwiki/vimwiki'
+"Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-one'
+Plug 'scrooloose/nerdcommenter'
 call plug#end()
 " }}}
 " Colors {{{
 syntax enable           " enable syntax processing
+"colorscheme one
 colorscheme badwolf
-set termguicolors
+"set termguicolors
 " }}}
 " Misc {{{
 set backspace=indent,eol,start
+set encoding=utf-8
 " }}}
 " Spaces & Tabs {{{
 set tabstop=4           " 4 space tab
@@ -41,7 +46,6 @@ set nocursorline        " highlight current line
 set wildmenu
 set lazyredraw
 set showmatch           " higlight matching parenthesis
-set fillchars+=vert:┃
 " }}}
 " Searching {{{
 set ignorecase          " ignore case when searching
@@ -66,9 +70,12 @@ nnoremap j gj
 nnoremap k gk
 " }}}
 " Ale {{{
-let g:ale_linters = {'javascript': ['eslint']}
+let b:ale_fixers = ['autopep8', 'yapf']
+let b:ale_linters = ['flake8']
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 0
+let g:ale_completion_enabled = 1
+let g:airline#extensions#ale#enabled = 1
 " }}}
 " CtrlP {{{
 let g:ctrlp_match_window = 'bottom,order:ttb'
@@ -77,14 +84,8 @@ let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
 " }}}
 " airline {{{
-set laststatus=2
-let g:airline_powerline_fonts = 1
-
-let g:airline_theme = 'badwolf'
-let g:airline_left_sep = ''
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_sep = ''
+"let g:airline_powerline_fonts = 1
+"let g:airline_theme = 'badwolf'
 " }}}
 " React Development {{{
 let g:jsx_ext_required = 0
@@ -96,6 +97,5 @@ let g:mta_filetypes = {
 let mapleader=","
 nnoremap <leader><space> :noh<CR>
 " }}}
-"
 
 " vim:foldmethod=marker:foldlevel=0
