@@ -1,6 +1,17 @@
 cut
 empty
-open_with 
 move 
 rename 3 Gatsu No Lion
 rename 
+mkdir Manga
+mv
+cp
+open_with 
+help
+
+search comix
+delete
+new Game of Thrones
+mkdir Game of Thrones
+rename Season 1
+rename Season 2

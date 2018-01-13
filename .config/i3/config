@@ -12,7 +12,7 @@ bindsym $mod+Return exec urxvt
 
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d exec rofi -show run -display-run #i3-dmenu-desktop
+bindsym $mod+d exec rofi -show drun #i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -22,8 +22,8 @@ bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+h move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+j move up
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
@@ -89,7 +89,7 @@ bindsym $mod4+Shift+0 move container to workspace 10
 assign [class="Firefox"] 2
 assign [class="Telegram"] 3
 assign [class="mpv"] 4
-assign [class="Transmission-gtk"] 4
+#assign [class="Transmission-gtk"] 4
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -141,11 +141,13 @@ bindsym $mod+x mode $displayMode
 mode $displayMode {
 
     bindsym h   exec --no-startup-id ~/.config/i3/scripts/home_display.sh; \
-                exec --no-startup-id nitrogen --restore &; \
+                exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/launch.png $HOME/Pictures/wallpapers/launch.png; \
+                restart; \
                 mode "default"
 
     bindsym l   exec --no-startup-id ~/.config/i3/scripts/laptop_display.sh; \
                 exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/launch.png; \
+                restart; \
                 mode "default"
 
     bindsym Return mode "default"
@@ -180,16 +182,19 @@ bindsym XF86AudioPrev --no-startup-id exec playerctl previous
 
 ## Screen shots ##
 bindsym Print exec --no-startup-id maim $HOME/Pictures/screenshots/$(date +%s).png
-bindsym --release Shift+Print exec --no-startup-id maim -s ~/Pictures/screenshots/$(date +%s).png
+#bindsym --release Shift+Print exec --no-startup-id maim -s ~/Pictures/screenshots/$(date +%s).png
+bindsym --release Shift+Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
 
 ## ROFI PASS
 bindsym $mod+p exec --no-startup-id rofi-pass
 
 ## AUTO START ##
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id python $HOME/.config/i3/scripts/disable_standby_fs.py
 exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/launch.png
 exec --no-startup-id ibus-daemon -drx
 exec --no-startup-id nm-applet
 exec --no-startup-id dunst
 exec --no-startup-id xss-lock -- betterlockscreen -l dim
 exec --no-startup-id compton --config ~/.config/compton/compton.conf -b
+exec --no-startup-id udiskie -ans &
