@@ -86,10 +86,11 @@ bindsym $mod4+Shift+0 move container to workspace 10
 
 # assign to workspace
 # assign [class="Google-chrome"] 2
-assign [class="Firefox"] 2
+assign [class="Firefox"] 3
+assign [class="Google-chrome"] 2
 assign [class="Telegram"] 3
 assign [class="mpv"] 4
-#assign [class="Transmission-gtk"] 4
+assign [class="Transmission-gtk"] 5
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -142,10 +143,12 @@ mode $displayMode {
 
     bindsym h   exec --no-startup-id ~/.config/i3/scripts/home_display.sh; \
                 exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/launch.png $HOME/Pictures/wallpapers/launch.png; \
+                exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/launch.png $HOME/Pictures/wallpapers/launch.png; \
                 restart; \
                 mode "default"
 
     bindsym l   exec --no-startup-id ~/.config/i3/scripts/laptop_display.sh; \
+                exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/launch.png; \
                 exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/launch.png; \
                 restart; \
                 mode "default"
@@ -161,13 +164,13 @@ gaps outer 0
 
 bindsym $mod+Shift+plus   gaps inner all plus 5
 bindsym $mod+Shift+minus  gaps inner all minus 5
-bindsym $mod+Shift+Escape gaps inner all set 10
+bindsym $mod+Shift+0 gaps inner all set 10
 
 ## MEDIA CONTROLS ##
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +10% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -10% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 10 #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 10 #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pamixer -t # mute sound
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle # mute mic
 
 # Sreen brightness controls
@@ -187,6 +190,13 @@ bindsym --release Shift+Print exec --no-startup-id maim -s | xclip -selection cl
 
 ## ROFI PASS
 bindsym $mod+p exec --no-startup-id rofi-pass
+
+## Window Behavior
+for_window [class="Firefox" title="Library"] floating enable
+for_window [class="Firefox" title="Firefox Preferences"] floating enable
+for_window [class="Google-chrome" title="Sign in - Google Accounts - Google Chrome"] floating enable
+
+## DISABLE CTRL + Q
 
 ## AUTO START ##
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh

@@ -1,17 +1,13 @@
-cut
-empty
-move 
-rename 3 Gatsu No Lion
-rename 
-mkdir Manga
-mv
-cp
+mkdir 
 open_with 
-help
 
-search comix
+empty
+rename 
+rename The Little Schemer.pdf
+rename The Seasoned Schemer.pdf
+mkdir CSC\ 335
+rename CSC 335
+mkdir Materials
 delete
-new Game of Thrones
-mkdir Game of Thrones
-rename Season 1
-rename Season 2
+mkdir Textbooks
+rename Textbooks

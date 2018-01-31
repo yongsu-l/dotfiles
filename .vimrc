@@ -28,6 +28,7 @@ colorscheme badwolf
 " Misc {{{
 set backspace=indent,eol,start
 set encoding=utf-8
+"set clipboard=unnamedplus
 " }}}
 " Spaces & Tabs {{{
 set tabstop=4           " 4 space tab
