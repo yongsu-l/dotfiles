@@ -1,7 +1,6 @@
 mkdir 
 open_with 
 
-empty
 rename 
 rename The Little Schemer.pdf
 rename The Seasoned Schemer.pdf
@@ -11,3 +10,4 @@ mkdir Materials
 delete
 mkdir Textbooks
 rename Textbooks
+empty
