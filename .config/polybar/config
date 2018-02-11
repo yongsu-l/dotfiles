@@ -19,7 +19,7 @@ alert = #bd2c40
 [bar/top]
 monitor = LVDS1
 width = 100%
-height = 20
+height = 18
 #radius = 0
 fixed-center = true
 
@@ -38,15 +38,14 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = fixed:pixelsize=8;1
-font-1 = fixed:sourcecodepro:fontformat=truetype:size=12:antialias=false;0
-font-2 = WunconSiji:size=9:antialias=false;2
+font-0 = "SourceCodePro:size=7;2"
+font-1 = "WunconSiji:size=9:antialias=false;2"
 
 modules-left = system i3 xwindow
 modules-center = 
 modules-right = wlan eth volume xkeyboard battery time
 
-tray-position = 
+tray-position = center
 tray-padding = 2
 
 cursor-click = pointer
@@ -175,7 +174,7 @@ type = internal/date
 interval = 5
 
 time = " %H:%M "
-time-alt = " %m-%d-%y "
+time-alt = " %a %m-%d-%y "
 
 format-prefix = "  "
 format-prefix-background = ${colors.background-alt}
@@ -185,18 +184,17 @@ label = %time%
 label-background = #6D8EC1
 
 [module/volume]
-type = internal/volume
+type = internal/pulseaudio
 
-#mapped = true
 master-soundcard = default
 speaker-soundcard = default
 headphone-soundcard = default
-mapping = true
 
 format-volume = <label-volume>
 label-volume = " %percentage%% "
 label-volume-background = #6D8EC1
 label-volume-foreground = ${colors.foreground}
+mapping = true
 
 format-volume-prefix = "  "
 format-volume-foreground = ${colors.foreground-alt}
@@ -254,16 +252,16 @@ format-full-prefix = "  "
 format-full-prefix-background = ${colors.background-alt}
 format-full-prefix-foreground = ${colors.foreground-alt}
 
-ramp-capacity-0 = "  "
-ramp-capacity-1 = "  "
-ramp-capacity-2 = "  "
-ramp-capacity-3 = "  "
-ramp-capacity-4 = "  "
-ramp-capacity-5 = "  "
-ramp-capacity-6 = "  "
-ramp-capacity-7 = "  "
-ramp-capacity-8 = "  "
-ramp-capacity-9 = "  "
+#ramp-capacity-0 = "  "
+ramp-capacity-0 = "  "
+ramp-capacity-1 = "  "
+ramp-capacity-2 = "  "
+ramp-capacity-3 = "  "
+ramp-capacity-4 = "  "
+ramp-capacity-5 = "  "
+ramp-capacity-6 = "  "
+ramp-capacity-7 = "  "
+ramp-capacity-8 = "  "
 ramp-capacity-background = ${colors.background-alt}
 ramp-capacity-foreground = ${colors.foreground-alt}
 

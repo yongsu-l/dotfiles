@@ -3,7 +3,7 @@
 set $mod Mod1
 set $mod4 Mod4
 
-set $wallpaper ~/Pictures/wallpaper/launch.png
+set $wallpaper ~/Pictures/wallpaper/spirited.jpg
 
 font pango:source code pro 10
 floating_modifier $mod
@@ -157,21 +157,21 @@ mode $displayMode {
     bindsym Escape mode "default"
 }
 
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 1
 
-gaps inner 5
+gaps inner 0
 gaps outer 0
 
 bindsym $mod+Shift+plus   gaps inner all plus 5
 bindsym $mod+Shift+minus  gaps inner all minus 5
-bindsym $mod+Shift+0 gaps inner all set 5
+bindsym $mod+Shift+0 gaps inner all set 0
 
 ## MEDIA CONTROLS ##
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5 #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 5 #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pamixer -t # mute sound
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle # mute mic
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5                  # increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 5                  # decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pamixer -t                           # mute sound
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle    # mute mic
 
 # Alsa Mixer Controls
 #bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ #increase sound volume
@@ -180,8 +180,8 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle # m
 #bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle # mute mic
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5      # increase screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5    # decrease screen brightness
 
 # Media player controls
 bindsym XF86AudioPlay --no-startup-id exec playerctl play
@@ -203,15 +203,16 @@ for_window [class="Firefox" title="Firefox Preferences"] floating enable
 for_window [class="Google-chrome" title="Sign in - Google Accounts - Google Chrome"] floating enable
 for_window [class="Google-chrome" title="Task Manager"] floating enable
 
+popup_during_fullscreen leave_fullscreen
+
 ## DISABLE CTRL + Q
 
 ## AUTO START ##
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id python $HOME/.config/i3/scripts/disable_standby_fs.py
-exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/launch.png
-exec --no-startup-id ibus-daemon -drx
-exec --no-startup-id nm-applet
+exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/spirited.jpg
+exec --no-startup-id ibus-daemon --xim
 exec --no-startup-id dunst
 exec --no-startup-id xss-lock -- betterlockscreen -l dim
 exec --no-startup-id compton --config ~/.config/compton/compton.conf -b
-exec --no-startup-id udiskie -ans &
+exec --no-startup-id udiskie -an &
