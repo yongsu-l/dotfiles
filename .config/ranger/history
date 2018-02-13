@@ -1,5 +1,4 @@
 mkdir 
-open_with 
 
 rename 
 rename The Little Schemer.pdf
@@ -13,3 +12,7 @@ rename Textbooks
 empty
 l
 search Drop
+open_with leafpad
+open_with 
+open_with racket
+open_with drracket
