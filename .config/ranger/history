@@ -9,10 +9,16 @@ mkdir Materials
 delete
 mkdir Textbooks
 rename Textbooks
-empty
 l
 search Drop
 open_with leafpad
 open_with 
 open_with racket
+q
+empty
+wq
+rename taxi_tripsr.csv
+mkdir Homeworks
+touch HW1.
+touch HW1.scm
 open_with drracket

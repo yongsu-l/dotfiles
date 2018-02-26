@@ -86,8 +86,9 @@ bindsym $mod4+Shift+0 move container to workspace 10
 
 # assign to workspace
 # assign [class="Google-chrome"] 2
-assign [class="Firefox"] 3
-assign [class="Google-chrome"] 2
+assign [class="Firefox"] 2
+assign [class="Google-chrome"] 3
+assign [class="Chromium"] 3
 assign [class="Telegram"] 3
 assign [class="mpv"] 4
 assign [class="Transmission-gtk"] 5
@@ -124,7 +125,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $sysmenu "system:  [k]ill [l]ock  [p]oweroff  [r]eboot  [s]uspend"
+set $sysmenu "system:  [k]ill [l]ock  [p]oweroff  [r]eboot  [s]uspend [h]ibernate"
 bindsym $mod+Shift+e      mode $sysmenu
 
 mode $sysmenu {
@@ -133,6 +134,7 @@ mode $sysmenu {
     bindsym s         exec --no-startup-id systemctl suspend, mode "default"
     bindsym p         exec shutdown -P now
     bindsym r         exec shutdown -r now
+    bindsym h         exec systemctl hibernate
     bindsym Return    mode "default"
     bindsym Escape    mode "default"
 }
@@ -157,7 +159,7 @@ mode $displayMode {
     bindsym Escape mode "default"
 }
 
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 2
 smart_borders on
 
 gaps inner 0
@@ -217,3 +219,4 @@ exec --no-startup-id dunst
 exec --no-startup-id xss-lock -- betterlockscreen -l dim
 exec --no-startup-id compton --config ~/.config/compton/compton.conf -b
 exec --no-startup-id udiskie -an &
+#exec --no-startup-id nm-applet
