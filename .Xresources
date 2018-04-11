@@ -12,11 +12,10 @@ Xft.antialias: 1
 Xft.rgba: rgb
 
 !-- URxvt settings -- !
-URxvt.font: xft:SourceCodePro:size=9,\
-            xft:Nanum Gothic
+URxvt.font: xft:SourceCodePro:pixelsize=12:Regular,\
+            xft:Noto Sans CJK
 
-!URxvt*font: -benis-lemon-medium-r-normal--10-110-75-75-*-50-*-*
-!URxvt*boldFont: -benis-lemon-medium-r-normal--10-110-75-75-*-50-*-*
+URxvt.boldFont: xft:SourceCodePro:pixelsize=12:Bold
 
 URxvt.letterSpace: 0
 URxvt.cursorBlink: 1
@@ -31,13 +30,26 @@ URxvt.internalBorder: 2
 
 ! Input method
 URxvt.inputMethod: ibus
-! URxvt.preeditType: OverTheSpot
+URxvt.preeditType: OverTheSpot
 
-! Enables copy/paste with Ctrl-Shift-C/V
+! Enables copy/paste with Ctrl-Shift-C/v
 URxvt.iso14755: false
 URxvt.iso14755_52: false
-URxvt.keysym.Shift-Control-V: eval:paste_clipboard
-URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+URxvt.keysym.C-C: perl:clipboard:copy
+URxvt.keysym.C-V: perl:clipboard:paste
+
+! Unmap buttons that are going to be used in vim
+URxvt.keysym.C-Tab            : \033[25~<Tab>]
+
+! URxvt Extensions
+URxvt.perl-ext-common: default,clipboard,matcher,url-select,keyboard-select,xresources-256
+URxvt.colorUL:    #4682B4
+!! url-select
+URxvt.keysym.M-u:  perl:url-select:select_next
+URxvt.url-select.launcher: webview
+URxvt.url-select.underline: true
+!!! keyboard-select:
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
 
 ! special
 *.foreground:   #c0c5ce

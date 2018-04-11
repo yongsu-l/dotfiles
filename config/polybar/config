@@ -23,12 +23,13 @@ blue = #8fa1b3
 magenta = #b48ead
 cyan = #96b5b4
 
-[bar/top]
+[bar/bottom]
 monitor = LVDS1
 width = 100%
 height = 18
 #radius = 0
 #fixed-center = true
+bottom = false
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -46,11 +47,12 @@ module-margin-left = 1
 module-margin-right = 1
 
 font-0 = "SourceCodePro:size=7;2"
-font-1 = "WunconSiji:size=9:antialias=false;2"
+font-1 = "SourceHanSans:size=7;2"
+font-2 = "WunconSiji:size=9:antialias=false;2"
 
 modules-left = system i3 xwindow
 modules-center = 
-modules-right = wlan volume xkeyboard battery time
+modules-right = eth wlan volume xkeyboard battery time
 
 tray-position = center
 tray-padding = 4
@@ -167,10 +169,12 @@ ramp-signal-foreground = ${colors.foreground-alt}
 click-left = nm-applet
 
 [module/eth]
-interval = 3.0
+type = internal/network
+interface = enp0s25
 
 format-connected-prefix = "  "
 format-connected-prefix-foreground = ${colors.foreground-alt}
+format-connected-prefix-background = ${colors.background-alt}
 label-connected = %local_ip%
 label-connected-background = ${colors.red}
 label-connected-foreground = ${colors.foreground-alt}
@@ -189,7 +193,7 @@ interval = 5
 time = " %H:%M "
 time-alt = " %a %m-%d-%y "
 
-format-prefix = "  "
+format-prefix = "  "
 format-prefix-background = ${colors.background-alt}
 format-prefix-foreground = ${colors.foreground-alt}
 
@@ -252,6 +256,7 @@ format-muted-background = ${colors.background-alt}
 label-muted = " muted "
 label-muted-background = ${colors.green}
 label-muted-foreground = ${colors.foreground-alt}
+
 [module/battery]
 type = internal/battery
 battery = BAT0
@@ -264,40 +269,26 @@ label-charging-background = ${colors.yellow}
 label-charging-foreground = ${colors.foreground-alt}
 label-charging-padding = 1
 label-discharging-padding = 1
-format-charging = <animation-charging><label-charging>
 
 format-discharging = <ramp-capacity><label-discharging>
+format-charging = <label-charging>
 
-format-full-prefix = "  "
+format-full-prefix = "  "
+label-full-background = ${colors.yellow}
+label-full-foreground = ${colors.foreground-alt}
+label-full-padding = 1
 format-full-prefix-background = ${colors.background-alt}
 format-full-prefix-foreground = ${colors.foreground-alt}
 
-#ramp-capacity-0 = "  "
-ramp-capacity-0 = "  "
-ramp-capacity-1 = "  "
-ramp-capacity-2 = "  "
-ramp-capacity-3 = "  "
-ramp-capacity-4 = "  "
-ramp-capacity-5 = "  "
-ramp-capacity-6 = "  "
-ramp-capacity-7 = "  "
-ramp-capacity-8 = "  "
+ramp-capacity-0 = "  "
+ramp-capacity-1 = "  "
+ramp-capacity-2 = "  "
 ramp-capacity-background = ${colors.background-alt}
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = "  "
-animation-charging-1 = "  "
-animation-charging-2 = "  "
-animation-charging-3 = "  "
-animation-charging-4 = "  "
-animation-charging-5 = "  "
-animation-charging-6 = "  "
-animation-charging-7 = "  "
-animation-charging-8 = "  "
-animation-charging-9 = "  "
-animation-charging-background = ${colors.background-alt}
-animation-charging-foreground = ${colors.foreground-alt}
-animation-charging-framerate = 150
+format-charging-prefix = "  "
+format-charging-background = ${colors.background-alt}
+format-charging-foreground = ${colors.foreground-alt}
 
 [module/xkeyboard]
 type = internal/xkeyboard

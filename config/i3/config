@@ -8,9 +8,9 @@ set $wallpaper ~/Pictures/wallpaper/spirited.jpg
 font pango:source code pro 10
 floating_modifier $mod
 
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec st
 
-bindsym $mod+Shift+q kill
+bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown).*$"] kill
 
 bindsym $mod+d exec rofi -show drun #i3-dmenu-desktop
 
@@ -57,8 +57,10 @@ set_from_resource $bg  i3wm.background
 set_from_resource $border  i3wm.color0  #f0f0f0
 set_from_resource $fg  i3wm.foreground  #f0f0f0
 
-# class                 border  backgr. text indicator child_border
-client.focused          #209b49 $209b49 #ffffff $border $border
+# class                 border  backgr. text    indicator child_border
+#client.focused          $border #121212 #c0c5ce $border   $border
+
+client.background       #ffffff
 
 # switch to workspace
 bindsym $mod4+1 workspace 1
@@ -87,10 +89,13 @@ bindsym $mod4+Shift+0 move container to workspace 10
 # assign to workspace
 # assign [class="Google-chrome"] 2
 assign [class="Firefox"] 2
-assign [class="Google-chrome"] 3
-assign [class="Chromium"] 3
+assign [class="Google-chrome"] 2
 assign [class="Telegram"] 3
+assign [class="discord"] 3
+assign [class="Messenger for Desktop"] 3
 assign [class="mpv"] 4
+assign [class="Slack"] 4
+assign [class="Chromium"] 4
 assign [class="Transmission-gtk"] 5
 
 # reload the configuration file
@@ -130,11 +135,11 @@ bindsym $mod+Shift+e      mode $sysmenu
 
 mode $sysmenu {
     bindsym k         exit
-    bindsym l         exec --no-startup-id xset s activate, mode "default"
+    bindsym l         exec --no-startup-id i3lock -c 000000, mode "default"
     bindsym s         exec --no-startup-id systemctl suspend, mode "default"
     bindsym p         exec shutdown -P now
     bindsym r         exec shutdown -r now
-    bindsym h         exec systemctl hibernate
+    bindsym h         exec --no-startup-id systemctl hibernate, mode "default"
     bindsym Return    mode "default"
     bindsym Escape    mode "default"
 }
@@ -144,15 +149,9 @@ bindsym $mod+x mode $displayMode
 mode $displayMode {
 
     bindsym h   exec --no-startup-id ~/.config/i3/scripts/home_display.sh; \
-                exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/launch.png $HOME/Pictures/wallpapers/launch.png; \
-                exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/launch.png $HOME/Pictures/wallpapers/launch.png; \
-                restart; \
                 mode "default"
 
     bindsym l   exec --no-startup-id ~/.config/i3/scripts/laptop_display.sh; \
-                exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/launch.png; \
-                exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/launch.png; \
-                restart; \
                 mode "default"
 
     bindsym Return mode "default"
@@ -160,6 +159,7 @@ mode $displayMode {
 }
 
 for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] move position center
 smart_borders on
 
 gaps inner 0
@@ -208,7 +208,15 @@ for_window [class="Google-chrome" title="Task Manager"] floating enable
 
 popup_during_fullscreen leave_fullscreen
 
+# Show the first scratchpad window
+bindsym $mod+u      [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 625 400
+for_window [instance="dropdown"] move scratchpad
+exec --no-startup-id st -n dropdown &
+
 ## DISABLE CTRL + Q
+bindsym Control+q exec --no-startup-id /bin/false
 
 ## AUTO START ##
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -216,7 +224,8 @@ exec --no-startup-id python $HOME/.config/i3/scripts/disable_standby_fs.py
 exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/spirited.jpg
 exec --no-startup-id ibus-daemon --xim
 exec --no-startup-id dunst
-exec --no-startup-id xss-lock -- betterlockscreen -l dim
 exec --no-startup-id compton --config ~/.config/compton/compton.conf -b
 exec --no-startup-id udiskie -an &
-#exec --no-startup-id nm-applet
+exec --no-startup-id setxkbmap -option caps:swapescape
+exec --no-startup-id redshift
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1

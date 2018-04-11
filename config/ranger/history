@@ -1,24 +1,39 @@
-mkdir 
-
 rename 
 rename The Little Schemer.pdf
 rename The Seasoned Schemer.pdf
 mkdir CSC\ 335
 rename CSC 335
 mkdir Materials
-delete
 mkdir Textbooks
 rename Textbooks
 l
 search Drop
-open_with leafpad
 open_with 
 open_with racket
 q
-empty
 wq
 rename taxi_tripsr.csv
 mkdir Homeworks
 touch HW1.
 touch HW1.scm
+
+mkdir OS
 open_with drracket
+search 
+open_with leafpad
+empty
+k
+:q
+ls -a
+show_hidden true
+set show_hidden true
+set show_hidden false
+mkdir 
+mkd
+mkdir j
+delete
+h
+search cost
+search Idea
+touch 
+show
