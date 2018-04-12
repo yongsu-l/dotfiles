@@ -8,7 +8,7 @@ set $wallpaper ~/Pictures/wallpaper/spirited.jpg
 font pango:source code pro 10
 floating_modifier $mod
 
-bindsym $mod+Return exec st
+bindsym $mod+Return exec --no-startup-id st
 
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown).*$"] kill
 

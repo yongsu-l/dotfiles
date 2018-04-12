@@ -13,8 +13,8 @@ Plug 'vimwiki/vimwiki'
 
 " Colors
 Plug 'sjl/badwolf'
-Plug 'morhetz/gruvbox'
-Plug 'altercation/vim-colors-solarized'
+Plug 'junegunn/seoul256.vim'
+Plug 'arcticicestudio/nord-vim'
 
 " Auto Completion
 Plug 'maralla/completor.vim'
@@ -24,15 +24,16 @@ Plug 'w0rp/ale'
 
 " Status Line
 Plug 'itchyny/lightline.vim'
+Plug 'edkolev/tmuxline.vim'
 
 " File Navigation
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'airblade/vim-rooter'
+"Plug 'airblade/vim-rooter'
 
 " Markdown
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+"Plug 'godlygeek/tabular'
+"Plug 'plasticboy/vim-markdown'
 
 " Snippets
 Plug 'epilande/vim-react-snippets'
@@ -51,8 +52,10 @@ call plug#end()
 " }}}
 " Colors {{{
 syntax enable           " enable syntax processing
-colorscheme badwolf
-set background=dark
+colorscheme nord
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+let g:nord_comment_brightness = 12
 " }}}
 " Misc {{{
 set nocompatible
@@ -125,7 +128,7 @@ nnoremap tk  :tabprev<CR>
 " }}}
 " Lightline {{{
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
