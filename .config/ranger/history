@@ -1,4 +1,3 @@
-rename 
 rename The Little Schemer.pdf
 rename The Seasoned Schemer.pdf
 mkdir CSC\ 335
@@ -37,3 +36,14 @@ search cost
 search Idea
 touch 
 show
+rename buttons.png
+rename buttons.jpeg
+rename buttons.jpg
+rename input.jpg
+rename arrow.jpg
+rename input_extended.jpg
+rename writemode.jpg
+mv
+rename change_to_write.jpg
+rename 
+rename clean.jpg

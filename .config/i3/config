@@ -89,13 +89,11 @@ bindsym $mod4+Shift+0 move container to workspace 10
 # assign to workspace
 # assign [class="Google-chrome"] 2
 assign [class="Firefox"] 2
-assign [class="Google-chrome"] 2
 assign [class="Telegram"] 3
 assign [class="discord"] 3
 assign [class="Messenger for Desktop"] 3
-assign [class="mpv"] 4
+# assign [class="mpv"] 4
 assign [class="Slack"] 4
-assign [class="Chromium"] 4
 assign [class="Transmission-gtk"] 5
 
 # reload the configuration file
@@ -135,7 +133,7 @@ bindsym $mod+Shift+e      mode $sysmenu
 
 mode $sysmenu {
     bindsym k         exit
-    bindsym l         exec --no-startup-id i3lock -c 000000, mode "default"
+    bindsym l         exec --no-startup-id i3lock -c 1b1b1b, mode "default"
     bindsym s         exec --no-startup-id systemctl suspend, mode "default"
     bindsym p         exec shutdown -P now
     bindsym r         exec shutdown -r now
@@ -169,11 +167,17 @@ bindsym $mod+Shift+plus   gaps inner all plus 5
 bindsym $mod+Shift+minus  gaps inner all minus 5
 bindsym $mod+Shift+0 gaps inner all set 0
 
+bar {
+  font pango:Source Code Pro-8 8
+  position top
+  status_command i3blocks
+}
+
 ## MEDIA CONTROLS ##
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5                  # increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 5                  # decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pamixer -t                           # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5; exec --no-startup-id pkill -RTMIN+10 i3blocks                  # increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 5; exec --no-startup-id pkill -RTMIN+10 i3blocks                  # decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pamixer -t; exec --no-startup-id pkill -RTMIN+10 i3blocks                           # mute sound
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle    # mute mic
 
 # Alsa Mixer Controls
@@ -187,10 +191,9 @@ bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5      # increa
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5    # decrease screen brightness
 
 # Media player controls
-bindsym XF86AudioPlay --no-startup-id exec playerctl play
-bindsym XF86AudioPause --no-startup-id exec playerctl pause
-bindsym XF86AudioNext --no-startup-id exec playerctl next
-bindsym XF86AudioPrev --no-startup-id exec playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 ## Screen shots ##
 bindsym Print exec --no-startup-id maim $HOME/Pictures/screenshots/$(date +%s).png
@@ -215,11 +218,15 @@ for_window [instance="dropdown"] resize set 625 400
 for_window [instance="dropdown"] move scratchpad
 exec --no-startup-id st -n dropdown &
 
+# Make mpv playing terminal float
+for_window [instance="mpv_float"] floating enable
+for_window [instance="mpv_float"] resize set 450 200
+
 ## DISABLE CTRL + Q
 bindsym Control+q exec --no-startup-id /bin/false
 
 ## AUTO START ##
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id python $HOME/.config/i3/scripts/disable_standby_fs.py
 exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/spirited.jpg
 exec --no-startup-id ibus-daemon --xim

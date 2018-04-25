@@ -29,7 +29,7 @@ URxvt.internalBorder: 2
 !URxvt*.depth: 24
 
 ! Input method
-URxvt.inputMethod: ibus
+! URxvt.inputMethod: ibus
 URxvt.preeditType: OverTheSpot
 
 ! Enables copy/paste with Ctrl-Shift-C/v
@@ -98,26 +98,3 @@ URxvt.keysym.M-Escape: perl:keyboard-select:activate
 *.color13: nord15
 *.color14: nord7
 *.color15: nord6
-
-!-- ROFI settings -- !
-
-rofi.separator-style: solid
-rofi.sidebar-mode: true
-rofi.bw: 1
-rofi.columns: 1
-rofi.padding: 16
-
-!                  bg         border   separator
-rofi.color-window: #2b303b, #000000, #000000
-!                  bg         fg       altbg      hlbg       hlfg
-rofi.color-normal: #2b303b, #839496, #2b303b, #8fa1b3, #2b303b
-rofi.color-active: #8fa1b3, #2b303b
-rofi.color-urgent: #dd002b36, #d33682, #00002b36, #dd073642, #d33682
-
-rofi.yoffset: 0
-rofi.fake-transparency: true 
-rofi.location: 0
-rofi.width: 50
-rofi.font: sourcecodepro 10 
-rofi.lines: 15
-rofi.fixed-num-lines: true

@@ -23,7 +23,7 @@ blue = #8fa1b3
 magenta = #b48ead
 cyan = #96b5b4
 
-[bar/bottom]
+[bar/top]
 monitor = LVDS1
 width = 100%
 height = 18
