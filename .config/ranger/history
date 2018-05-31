@@ -1,36 +1,3 @@
-rename The Little Schemer.pdf
-rename The Seasoned Schemer.pdf
-mkdir CSC\ 335
-rename CSC 335
-mkdir Materials
-mkdir Textbooks
-rename Textbooks
-l
-search Drop
-open_with 
-open_with racket
-q
-wq
-rename taxi_tripsr.csv
-mkdir Homeworks
-touch HW1.
-touch HW1.scm
-
-mkdir OS
-open_with drracket
-search 
-open_with leafpad
-empty
-k
-:q
-ls -a
-show_hidden true
-set show_hidden true
-set show_hidden false
-mkdir 
-mkd
-mkdir j
-delete
 h
 search cost
 search Idea
@@ -47,3 +14,37 @@ mv
 rename change_to_write.jpg
 rename 
 rename clean.jpg
+delete
+search conver
+empty 
+mkdir Linux
+sudo mkdir Linux
+search intel
+search dw
+search vs_
+search redist
+open_with drracket
+open_with 
+rename 1.jpg
+rename 2.jpg
+rename 3.jpg
+rename 4.jpg
+rename 5.jpg
+rename 6.jpg
+rename 7.jpg
+feh
+search pictu
+rename Yuan.JPG
+
+help
+search parad
+search trah
+search drop
+rename tls.pdf
+rename tss.pdf
+search para
+search homework8
+rename Homework8.scm
+search 
+search locking
+search screen

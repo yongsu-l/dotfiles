@@ -4,7 +4,7 @@
 call plug#begin('~/.vim/plugged')
 
 " Misc
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 " Wiki
@@ -17,7 +17,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'tpope/vim-dispatch'
 
 " Auto Completion
-Plug 'maralla/completor.vim'
+Plug 'maralla/completor.vim', {'do': 'cd pythonx/completers/javascript && npm install'}
 
 " Linter
 Plug 'w0rp/ale'
@@ -112,11 +112,6 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let mapleader=","
 nnoremap <leader><space> :noh<CR>
 " }}}
-" Tab Shortcuts {{{
-nnoremap <C-t>     :tabnew<CR>
-nnoremap tj  :tabnext<CR>
-nnoremap tk  :tabprev<CR>
-" }}}
 " Completor {{{
 " let g:completor_auto_trigger = 0
 " inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
@@ -135,7 +130,7 @@ let g:lightline = {
       \ }
 " }}}
 " FZF {{{
-nnoremap <leader>f :Files<cr>
+nnoremap <CTRL>f :Files<cr>
 nnoremap <leader>b :Buffers<cr>
 let g:rg_command = '
   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"

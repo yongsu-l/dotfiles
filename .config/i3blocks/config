@@ -69,26 +69,31 @@ interval=30
 #
 # If the instance is not specified, use the interface used for default route.
 # The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
-#[iface]
-##instance=wlan0
-#color=#00FF00
-#interval=10
-#separator=false
+# [iface]
+# # instance=enp0s25
+# color=#00FF00
+# interval=10
+# separator=true
 
-[ssid]
-command=$HOME/.config/i3blocks/scripts/ssid
-interval=5
-color=#00FF00
-separator=false
+# [ssid]
+# command=$HOME/.config/i3blocks/scripts/ssid
+# interval=5
+# color=#00FF00
+# separator=false
+[eth]
+command=$HOME/.config/i3blocks/scripts/eth
+instance=enp0s25
+interval=10
 
 [wifi]
+command=$HOME/.config/i3blocks/scripts/wifi
 instance=wlp3s0
 interval=10
-separator=true
+# separator=false
 
-#[bandwidth]
-##instance=eth0
-#interval=5
+# [bandwidth]
+# instance=eth0
+# interval=5
 
 # CPU usage
 #
@@ -108,7 +113,7 @@ separator=true
 # The battery instance defaults to 0.
 [battery]
 label=BAT
-#label=⚡
+label=⚡
 #instance=1
 interval=30
 
