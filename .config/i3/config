@@ -11,7 +11,7 @@ bindsym $mod+Return exec --no-startup-id st
 
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown).*$"] kill
 
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop #dmenu_run #i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id dmenu_run #dmenu_run #i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -107,10 +107,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym h resize grow width 5 px or 5 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
         bindsym k resize grow height 5 px or 5 ppt
         bindsym j resize shrink height 5 px or 5 ppt
-        bindsym l resize shrink width 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 5 px or 5 ppt
@@ -221,7 +221,7 @@ bindsym Control+q exec --no-startup-id /bin/false
 
 ## AUTO START ##
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/spirited.jpg
+exec --no-startup-id feh --bg-fill $wallpaper
 exec --no-startup-id ibus-daemon --xim
 exec --no-startup-id dunst
 exec --no-startup-id compton --config ~/.config/compton/compton.conf -b
@@ -230,4 +230,4 @@ exec --no-startup-id setxkbmap -option caps:swapescape
 # exec --no-startup-id redshift
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec --no-startup-id nm-applet 
-#exec --no-startup-id cmst
+exec --no-startup-id cmst
