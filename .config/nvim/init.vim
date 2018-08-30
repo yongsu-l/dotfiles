@@ -3,6 +3,7 @@ call plug#begin()
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 Plug 'vimwiki/vimwiki'
+Plug 'mhinz/vim-signify'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 Plug 'tpope/vim-surround'
@@ -21,8 +22,13 @@ Plug 'junegunn/fzf.vim'
 " Omnicompletion
 Plug 'ervandew/supertab'
 Plug 'ternjs/tern_for_vim'
-" Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'OmniSharp/omnisharp-vim'
+
+" Snippets
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
 " Syntax Related
 Plug 'pangloss/vim-javascript'
@@ -34,7 +40,7 @@ set wildmenu
 
 set noswapfile
 
-autocmd Filetype javascript setlocal sw=2 sts=2
+autocmd Filetype javascript.jsx setlocal sw=2 sts=2
 
 filetype plugin indent on
 set autoindent
@@ -77,11 +83,10 @@ let g:SuperTabCrMapping = 1
 
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_completion_enabled = 1
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+let b:ale_linters = ['flake8', 'pylint']
+let b:ale_fixers = ['autopep8', 'yapf']
 
 let mapleader=","
 nnoremap <leader><space> :noh<CR>
-
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>b :Buffers<cr>

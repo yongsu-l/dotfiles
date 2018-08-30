@@ -87,11 +87,11 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 # assign to workspace
 # assign [class="Google-chrome"] 2
-assign [class="Firefox"] 3
+# assign [class="Firefox"] 3
 assign [class="Telegram"] 4
-# assign [class="mpv"] 4
-assign [class="Slack"] 4
-assign [class="Transmission-gtk"] 5
+# assign [class="Slack"] 4
+assign [class="mpv"] 5
+assign [class="Transmission-gtk"] 6
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -156,9 +156,9 @@ mode $displayMode {
     bindsym Escape mode "default"
 }
 
-for_window [class="^.*"] border pixel 2
-for_window [class="^.*"] move position center
-smart_borders on
+# for_window [class="^.*"] border pixel 2
+# for_window [class="^.*"] move position center
+# smart_borders on
 
 bar {
   font pango:Source Code Pro 8
@@ -210,6 +210,7 @@ bindsym $mod+u      [instance="dropdown"] scratchpad show; [instance="dropdown"]
 for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 625 400
 for_window [instance="dropdown"] move scratchpad
+for_window [instance="dropdown"] border pixel 2
 exec --no-startup-id st -n dropdown &
 
 # Make mpv playing terminal float
@@ -231,3 +232,4 @@ exec --no-startup-id setxkbmap -option caps:swapescape
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec --no-startup-id nm-applet 
 exec --no-startup-id cmst
+exec --no-startup-id xset r rate 200 25
