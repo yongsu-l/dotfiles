@@ -1,53 +1,65 @@
 " Plug
 call plug#begin()
+
+Plug 'editorconfig/editorconfig-vim'
+
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
-Plug 'vimwiki/vimwiki'
+" Git Commit Visuals
 Plug 'mhinz/vim-signify'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
-Plug 'tpope/vim-surround'
+" Organization
+Plug 'vimwiki/vimwiki'
+Plug 'tbabej/taskwiki'
 
 " Colors
 Plug 'chriskempson/base16-vim'
 
-" Async Dispatch
-Plug 'tpope/vim-dispatch'
-Plug 'w0rp/ale'
+" " Comments
+Plug 'tpope/vim-commentary'
 
 " File Navigation
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Omnicompletion
+" Auto Completion
 Plug 'ervandew/supertab'
-Plug 'ternjs/tern_for_vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'OmniSharp/omnisharp-vim'
 
-" Snippets
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+" Language Servers and syntax linting
+Plug 'w0rp/ale'
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Syntax Related
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+
 call plug#end()
+
+set list listchars=tab:│·,trail:·,extends:→
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
+set encoding=utf-8
 
 set splitright
 set wildmenu
 
 set noswapfile
 
-autocmd Filetype javascript.jsx setlocal sw=2 sts=2
-
 filetype plugin indent on
 set autoindent
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 set number
-set showcmd
+" set showcmd
 set cursorline
 set showmatch
 
@@ -55,10 +67,6 @@ set ignorecase
 set incsearch
 set hlsearch
 
-nnoremap j gj
-nnoremap k gk
-
-set laststatus=2
 " Statusline
 set statusline =
 " File description
@@ -72,19 +80,23 @@ set statusline +=%=%-10L
 " Line, column and percentage
 set statusline +=%=%-14.(%l,%c%V%)\ %P
 
-let base16colorspace=256
-set termguicolors 
+" let base16colorspace=256
+set termguicolors
 colorscheme base16-default-dark
+
+set cc=81
 
 map <silent> <C-n> :NERDTreeToggle<cr>
 
+map <F8> :setlocal spell! spelllang=en_us<CR>
+
 let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabCrMapping = 1
+
+" " Jedi vim
+let g:jedi#auto_vim_configuration=0
+let g:jedi#popup_on_dot=0
 
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_completion_enabled = 1
-let b:ale_linters = ['flake8', 'pylint']
-let b:ale_fixers = ['autopep8', 'yapf']
 
 let mapleader=","
 nnoremap <leader><space> :noh<CR>

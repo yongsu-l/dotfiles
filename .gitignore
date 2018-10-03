@@ -1,1 +1,7 @@
 .config/nvim/plugged
+.config/nvim/.netrwhist
+.config/ranger/bookmarks
+.config/ranger/history
+.config/ranger/devicons.py
+.config/ranger/__pycache__/
+.config/ranger/plugins/

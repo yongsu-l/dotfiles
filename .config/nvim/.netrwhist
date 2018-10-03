@@ -1,5 +1,10 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/yong/go/src/github.com/Yong-L/mafia/.git'
-let g:netrw_dirhist_2='/home/yong/coding_problems/leetcode'
-let g:netrw_dirhist_3='/home/yong/.config/fontconfig'
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/home/yong/.neomutt'
+let g:netrw_dirhist_2='/home/yong/dotfiles/.config/nvim'
+let g:netrw_dirhist_3='/home/yong/dotfiles/.config/nvim/plugged'
+let g:netrw_dirhist_4='/home/yong/.config/i3'
+let g:netrw_dirhist_5='/home/yong/.config'
+let g:netrw_dirhist_6='/home/yong'
+let g:netrw_dirhist_7='/home/yong/.config/i3'
+let g:netrw_dirhist_8='/home/yong/dotfiles/.git'
