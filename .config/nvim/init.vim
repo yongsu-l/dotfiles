@@ -40,6 +40,11 @@ Plug 'w0rp/ale'
 " Syntax Related
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'chrisbra/csv.vim'
+Plug 'posva/vim-vue'
+Plug 'lervag/vimtex'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'do': './install.sh' }
 
 call plug#end()
 
