@@ -22,3 +22,5 @@ export PATH=$PATH:$(go env GOPATH)/bin:$HOME/.local/bin:~/.npm-global/bin
 export GOPATH=$HOME/go
 
 export PATH=$PATH:$HOME/.scripts
+export PATH=$PATH:$HOME/.config/composer/vendor/bin
+export PATH=$PATH:/home/yong/android-studio/bin

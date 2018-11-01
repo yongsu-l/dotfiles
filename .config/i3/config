@@ -2,7 +2,7 @@
 
 set $mod Mod4
 
-set $wallpaper ~/Pictures/wallpaper/spirited.jpg
+set $wallpaper ~/Pictures/wallpaper/mountains.jpg
 
 font pango:source code pro 10
 floating_modifier $mod
@@ -40,7 +40,7 @@ bindsym $mod+w layout toggle
 bindsym $mod+e layout toggle split
 
 # default layout container
-workspace_layout stacking
+workspace_layout tabbed
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle; sticky disable
@@ -94,6 +94,7 @@ bindsym $mod+Shift+0 move container to workspace 10
 # assign to workspace
 # assign [class="Google-chrome"] 2
 # assign [class="Firefox"] 3
+assign [class="Slay The Spire"] 3
 assign [class="Telegram"] 4
 assign [class="Slack"] 4
 assign [class="Geary"] 4
@@ -138,7 +139,7 @@ bindsym $mod+Shift+e      mode $sysmenu
 
 mode $sysmenu {
     bindsym k         exit
-    bindsym l         exec --no-startup-id betterlockscreen -l dim, mode "default"
+    bindsym l         exec --no-startup-id i3lock -c 333333, mode "default"
     bindsym s         exec --no-startup-id systemctl suspend, mode "default"
     bindsym p         exec shutdown -P now
     bindsym r         exec shutdown -r now
@@ -177,16 +178,10 @@ bar {
 
 ## MEDIA CONTROLS ##
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 0 +5%; exec --no-startup-id pkill -RTMIN+10 i3blocks                  # increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5%; exec --no-startup-id pkill -RTMIN+10 i3blocks                  # decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pamixer -t; exec --no-startup-id pkill -RTMIN+10 i3blocks                           # mute sound
+bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+; exec pkill -RTMIN+10 i3blocks 
+bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%-; exec pkill -RTMIN+10 i3blocks
+bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle; exec pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle; exec --no-startup-id pkill -RTMIN+10 i3blocks    # mute mic
-
-# Alsa Mixer Controls
-#bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ #increase sound volume
-#bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- #decrease sound volume
-#bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle # mute sound
-#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle # mute mic
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5      # increase screen brightness
@@ -238,5 +233,6 @@ exec --no-startup-id udiskie -an &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id xset r rate 200 25
 exec --no-startup-id redshift -O 7600
+exec --no-startup-id nm-applet
 # exec --no-startup-id fcitx
 exec --no-startup-id ibus-daemon -drx

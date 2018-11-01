@@ -24,8 +24,8 @@
     startup_notification = false
     #icon_position = left
     #icon_folders = /usr/share/icons/elementary/actions/16/
-    frame_width = 1
-    frame_color = "#c0c5ce"
+    frame_width = 2
+    # frame_color = "#c0c5ce"
 
 [shortcuts]
     close = ctrl+space
@@ -34,16 +34,19 @@
     context = ctrl+shift+period
 
 [urgency_low]
-    background = "#2b303b"
+    background = "#181818"
     foreground = "#c0c5ce"
+    frame_color = "#c0c5ce"
     timeout = 5
 
 [urgency_normal]
-    background = "#2b303b"
+    background = "#181818"
     foreground = "#8fa1b3"
+    frame_color = "#8fa1b3"
     timeout = 20
 
 [urgency_critical]
-    background = "#2b303b"
+    background = "#181818"
     foreground = "#bf616a"
+    frame_color = "#bf616a"
     timeout = 0

@@ -23,6 +23,8 @@ Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+Plug 'rhysd/vim-grammarous'
+
 " Auto Completion
 Plug 'ervandew/supertab'
 Plug 'davidhalter/jedi-vim'
@@ -38,13 +40,8 @@ Plug 'w0rp/ale'
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Syntax Related
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'chrisbra/csv.vim'
-Plug 'posva/vim-vue'
 Plug 'lervag/vimtex'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'do': './install.sh' }
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -107,3 +104,17 @@ let mapleader=","
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>b :Buffers<cr>
+
+set clipboard+=unnamedplus
+
+" " " Copy to clipboard
+" vnoremap  <leader>y  "+y
+" nnoremap  <leader>Y  "+yg_
+" nnoremap  <leader>y  "+y
+" nnoremap  <leader>yy  "+yy
+
+" " " Paste from clipboard
+" nnoremap <leader>p "+p
+" nnoremap <leader>P "+P
+" vnoremap <leader>p "+p
+" vnoremap <leader>P "+P
