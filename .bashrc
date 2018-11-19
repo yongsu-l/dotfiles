@@ -24,3 +24,4 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$HOME/.scripts
 export PATH=$PATH:$HOME/.config/composer/vendor/bin
 export PATH=$PATH:/home/yong/android-studio/bin
+export PATH=$PATH:/home/yong/anaconda3/bin

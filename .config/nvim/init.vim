@@ -43,6 +43,9 @@ Plug 'w0rp/ale'
 Plug 'lervag/vimtex'
 Plug 'sheerun/vim-polyglot'
 
+" Language Specific Tools
+Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
+
 call plug#end()
 
 set list listchars=tab:│·,trail:·,extends:→
@@ -118,3 +121,4 @@ set clipboard+=unnamedplus
 " nnoremap <leader>P "+P
 " vnoremap <leader>p "+p
 " vnoremap <leader>P "+P
+autocmd FileType php setlocal omnifunc=phpactor#Complete<Paste>

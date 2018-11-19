@@ -95,12 +95,12 @@ bindsym $mod+Shift+0 move container to workspace 10
 # assign [class="Google-chrome"] 2
 # assign [class="Firefox"] 3
 assign [class="Slay The Spire"] 3
+assign [class="mpv"] 3
 assign [class="Telegram"] 4
 assign [class="Slack"] 4
 assign [class="Geary"] 4
 # assign [class="Slack"] 4
 assign [class="Transmission-gtk"] 6
-# assign [class="mpv"] 7
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -173,7 +173,7 @@ bar {
   font pango:Source Code Pro 8
   position top
   status_command i3blocks
-  tray_output none
+  tray_output primary
 }
 
 ## MEDIA CONTROLS ##
@@ -197,7 +197,7 @@ bindsym Print exec --no-startup-id maim ~/Pictures/screenshots/$(date +%s).png
 bindsym --release Shift+Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png #| tee ~/Pictures/screenshots/$(date +%s).png
 
 ## ROFI PASS
-bindsym $mod+p exec --no-startup-id passmenu
+bindsym $mod+p exec --no-startup-id keepmenu
 
 ## Window Behavior
 for_window [class="Firefox" title="Library"] floating enable
