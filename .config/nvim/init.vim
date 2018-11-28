@@ -27,9 +27,10 @@ Plug 'rhysd/vim-grammarous'
 
 " Auto Completion
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 " Plug 'davidhalter/jedi-vim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
 " Language Servers and syntax linting
 Plug 'w0rp/ale'
@@ -98,8 +99,8 @@ map <F8> :setlocal spell! spelllang=en_us<CR>
 
 autocmd FileType php setlocal omnifunc=phpactor#Complete
 
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+" let g:SuperTabDefaultCompletionType = "context"
+" let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
 " " " Jedi vim
 " let g:jedi#auto_vim_configuration=0
@@ -112,3 +113,10 @@ nnoremap <leader><space> :noh<CR>
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>b :Buffers<cr>
 
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+command! -nargs=0 Format :call CocAction('format')
