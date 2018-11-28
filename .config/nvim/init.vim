@@ -26,8 +26,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'rhysd/vim-grammarous'
 
 " Auto Completion
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Language Servers and syntax linting
@@ -77,7 +78,7 @@ set statusline =
 " File description
 set statusline +=%f\ %h%m%r%w
 " Filetype
-set statusline +=%y                                                  
+set statusline +=%y
 " GitBranch need fugitive
 set statusline +=\ %{fugitive#statusline()}
 " Total number of lines in the file
@@ -89,17 +90,20 @@ set statusline +=%=%-14.(%l,%c%V%)\ %P
 set termguicolors
 colorscheme base16-default-dark
 
-set cc=81
-
 map <silent> <C-n> :NERDTreeToggle<cr>
 
 map <F8> :setlocal spell! spelllang=en_us<CR>
 
-let g:SuperTabDefaultCompletionType = "context"
+" let g:deoplete#enable_at_startup = 1
 
-" " Jedi vim
-let g:jedi#auto_vim_configuration=0
-let g:jedi#popup_on_dot=0
+autocmd FileType php setlocal omnifunc=phpactor#Complete
+
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+
+" " " Jedi vim
+" let g:jedi#auto_vim_configuration=0
+" let g:jedi#popup_on_dot=0
 
 let g:ale_lint_on_text_changed = 'never'
 
@@ -108,17 +112,3 @@ nnoremap <leader><space> :noh<CR>
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>b :Buffers<cr>
 
-set clipboard+=unnamedplus
-
-" " " Copy to clipboard
-" vnoremap  <leader>y  "+y
-" nnoremap  <leader>Y  "+yg_
-" nnoremap  <leader>y  "+y
-" nnoremap  <leader>yy  "+yy
-
-" " " Paste from clipboard
-" nnoremap <leader>p "+p
-" nnoremap <leader>P "+P
-" vnoremap <leader>p "+p
-" vnoremap <leader>P "+P
-autocmd FileType php setlocal omnifunc=phpactor#Complete<Paste>
