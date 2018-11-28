@@ -4,7 +4,7 @@
 
 set -o vi
 
-alias ls='ls --color=auto'
+alias ls='ls -F'
 alias vim="nvim"
 alias reddit="rtv --enable-media"
 alias feh="feh --scale-down --auto-zoom"
