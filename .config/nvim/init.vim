@@ -91,6 +91,9 @@ set statusline +=%=%-14.(%l,%c%V%)\ %P
 set termguicolors
 colorscheme base16-default-dark
 
+" Prevent screen flickering
+set completeopt-=preview
+
 map <silent> <C-n> :NERDTreeToggle<cr>
 
 map <F8> :setlocal spell! spelllang=en_us<CR>
