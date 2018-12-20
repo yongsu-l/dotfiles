@@ -7,11 +7,11 @@ set $wallpaper ~/Pictures/wallpaper/mountains.jpg
 font pango:source code pro 10
 floating_modifier $mod
 
-bindsym $mod+Return exec --no-startup-id st
+bindsym $mod+Return exec --no-startup-id termite
 
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown).*$"] kill
 
-bindsym $mod+d exec --no-startup-id dmenu_run #dmenu_run #i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id dmenu_run -i #dmenu_run #i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -40,7 +40,7 @@ bindsym $mod+w layout toggle
 bindsym $mod+e layout toggle split
 
 # default layout container
-workspace_layout tabbed
+workspace_layout stacked
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle; sticky disable
@@ -210,7 +210,8 @@ for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 625 400
 for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 2
-exec --no-startup-id st -n dropdown &
+
+exec --no-startup-id termite --name=dropdown &
 
 # Make mpv playing terminal float
 for_window [instance="mpv_float"] floating enable
@@ -228,7 +229,6 @@ exec --no-startup-id dunst
 exec --no-startup-id compton --config ~/.config/compton/compton.conf -b
 exec --no-startup-id udiskie -an &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id xset r rate 200 25
 exec --no-startup-id redshift -O 7600
 exec --no-startup-id nm-applet
 exec --no-startup-id ibus-daemon -drx

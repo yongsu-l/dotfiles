@@ -6,7 +6,7 @@ set -o vi
 
 alias ls='ls -F'
 alias vim="nvim"
-alias reddit="rtv --enable-media"
+alias tmux="tmux -2"
 alias feh="feh --scale-down --auto-zoom"
 export PS1=" \[\e[00;34m\]λ \W \[\e[0m\]"
 
@@ -25,3 +25,5 @@ export PATH=$PATH:$HOME/.scripts
 export PATH=$PATH:$HOME/.config/composer/vendor/bin
 export PATH=$PATH:/home/yong/android-studio/bin
 export PATH=$PATH:/home/yong/anaconda3/bin
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

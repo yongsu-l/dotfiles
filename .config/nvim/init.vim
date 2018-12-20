@@ -1,5 +1,6 @@
 " Plug
 call plug#begin()
+Plug 'lervag/vimtex'
 
 Plug 'editorconfig/editorconfig-vim'
 
@@ -33,7 +34,7 @@ Plug 'rhysd/vim-grammarous'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
 " Language Servers and syntax linting
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 " Plug 'autozimu/LanguageClient-neovim', {
 "     \ 'branch': 'next',
 "     \ 'do': 'bash install.sh',
@@ -42,7 +43,6 @@ Plug 'w0rp/ale'
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Syntax Related
-Plug 'lervag/vimtex'
 Plug 'sheerun/vim-polyglot'
 
 " Language Specific Tools
@@ -98,18 +98,10 @@ map <silent> <C-n> :NERDTreeToggle<cr>
 
 map <F8> :setlocal spell! spelllang=en_us<CR>
 
-" let g:deoplete#enable_at_startup = 1
+" autocmd FileType php setlocal omnifunc=phpactor#Complete
 
-autocmd FileType php setlocal omnifunc=phpactor#Complete
-
-" let g:SuperTabDefaultCompletionType = "context"
-" let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-
-" " " Jedi vim
-" let g:jedi#auto_vim_configuration=0
-" let g:jedi#popup_on_dot=0
-
-let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_text_changed = 'never'
+" let b:ale_fixers = {'jsx': ['prettier', 'eslint']}
 
 let mapleader=","
 nnoremap <leader><space> :noh<CR>
@@ -122,4 +114,4 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
