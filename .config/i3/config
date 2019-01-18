@@ -2,7 +2,7 @@
 
 set $mod Mod4
 
-set $wallpaper ~/Pictures/wallpaper/mountains.jpg
+set $wallpaper ~/Pictures/wallpapers/dystopia.jpg
 
 font pango:source code pro 10
 floating_modifier $mod
@@ -11,7 +11,7 @@ bindsym $mod+Return exec --no-startup-id termite
 
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown).*$"] kill
 
-bindsym $mod+d exec --no-startup-id dmenu_run -i #dmenu_run #i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun
 
 # change focus
 bindsym $mod+h focus left
@@ -184,8 +184,8 @@ bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle; exec pkill -RT
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle; exec --no-startup-id pkill -RTMIN+10 i3blocks    # mute mic
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5      # increase screen brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5    # decrease screen brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 2      # increase screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 2    # decrease screen brightness
 
 # Media player controls
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
@@ -207,7 +207,7 @@ popup_during_fullscreen leave_fullscreen
 # Show the first scratchpad window
 bindsym $mod+u      [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 for_window [instance="dropdown"] floating enable
-for_window [instance="dropdown"] resize set 625 400
+for_window [instance="dropdown"] resize set 1000 600
 for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 2
 
@@ -223,12 +223,10 @@ for_window [instance="mpv_float"] resize set 450 200
 bindsym Control+q exec --no-startup-id /bin/false
 
 ## AUTO START ##
-# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id feh --bg-fill $wallpaper
 exec --no-startup-id dunst
 exec --no-startup-id compton --config ~/.config/compton/compton.conf -b
 exec --no-startup-id udiskie -an &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id redshift -O 7600
-exec --no-startup-id nm-applet
-exec --no-startup-id ibus-daemon -drx
+exec --no-startup-id env GDK_SCALE=1.5 ibus-daemon -drx
+exec --no-startup-id xinput disable 11

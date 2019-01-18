@@ -1,6 +1,5 @@
 " Plug
 call plug#begin()
-Plug 'lervag/vimtex'
 
 Plug 'editorconfig/editorconfig-vim'
 
@@ -10,11 +9,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
-" Organization
-Plug 'vimwiki/vimwiki'
-Plug 'tbabej/taskwiki'
-
-" Colors
+" " Colors
 Plug 'chriskempson/base16-vim'
 
 " " Comments
@@ -32,6 +27,7 @@ Plug 'rhysd/vim-grammarous'
 " Plug 'davidhalter/jedi-vim'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+" Plug 'w0rp/ale'
 
 " Language Servers and syntax linting
 " Plug 'w0rp/ale'
@@ -45,8 +41,12 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " Syntax Related
 Plug 'sheerun/vim-polyglot'
 
+" Organization
+" Plug 'vimwiki/vimwiki'
+Plug 'lervag/vimtex'
+
 " Language Specific Tools
-Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
+" Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
 
 call plug#end()
 
@@ -115,3 +115,4 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+command! -nargs=0 Format :call CocAction('format')

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+COUNT=$(curl -sA "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30" https://www.privateinternetaccess.com/pages/whats-my-ip/|grep -c "You are protected by PIA")
+
+
+if (( $COUNT > 0 ))
+then
+	echo "vpn up"
+	echo "#00FF00"
+	echo "#00FF00"
+else
+	echo 'vpn down'
+	echo "#FF00000"
+	echo "#FF00000"
+fi

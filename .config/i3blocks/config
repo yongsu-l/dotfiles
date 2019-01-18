@@ -1,4 +1,4 @@
-# i3blocks config file
+# i4blocks config file
 #
 # Please see man i3blocks for a complete reference!
 # The man page is also hosted at http://vivien.github.io/i3blocks
@@ -80,14 +80,18 @@ interval=30
 # separator=false
 [eth]
 command=$HOME/.config/i3blocks/scripts/eth
-instance=enp0s25
+instance=enp0s31f6
 interval=10
 
 [wifi]
 command=$HOME/.config/i3blocks/scripts/wifi
-instance=wlp3s0
+instance=wlp61s0
 interval=10
 # separator=false
+
+[vpn]
+command=$HOME/.config/i3blocks/scripts/vpn
+interval=60
 
 # [bandwidth]
 # instance=eth0
