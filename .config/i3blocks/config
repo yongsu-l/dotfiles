@@ -91,7 +91,7 @@ interval=10
 
 [vpn]
 command=$HOME/.config/i3blocks/scripts/vpn
-interval=60
+interval=10
 
 # [bandwidth]
 # instance=eth0

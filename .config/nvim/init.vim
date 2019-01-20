@@ -30,7 +30,7 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " Plug 'w0rp/ale'
 
 " Language Servers and syntax linting
-" Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 " Plug 'autozimu/LanguageClient-neovim', {
 "     \ 'branch': 'next',
 "     \ 'do': 'bash install.sh',
