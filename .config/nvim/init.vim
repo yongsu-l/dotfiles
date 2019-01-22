@@ -6,7 +6,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 " Git Commit Visuals
-Plug 'mhinz/vim-signify'
+" Plug 'mhinz/vim-signify'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " " Colors
@@ -19,7 +19,7 @@ Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'rhysd/vim-grammarous'
+" Plug 'rhysd/vim-grammarous'
 
 " Auto Completion
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -42,7 +42,7 @@ Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
 
 " Organization
-" Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki'
 Plug 'lervag/vimtex'
 
 " Language Specific Tools

@@ -2,7 +2,7 @@
 
 set $mod Mod4
 
-set $wallpaper ~/Pictures/wallpapers/dystopia.jpg
+set $wallpaper ~/Pictures/wallpapers/lonely.jpg
 
 font pango:source code pro 10
 floating_modifier $mod

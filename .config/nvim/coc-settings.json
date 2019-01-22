@@ -1,5 +1,6 @@
 {
 	"prettier.eslintIntegration": true,
 	"coc.preferences.triggerAfterInsertEnter": true,
-	"coc.preferences.noselect": false
+	"coc.preferences.noselect": false,
+	"eslint.run": "onSave"
 }
