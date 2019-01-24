@@ -5,48 +5,29 @@ Plug 'editorconfig/editorconfig-vim'
 
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
-" Git Commit Visuals
-" Plug 'mhinz/vim-signify'
+" " Git Commit Visuals
+Plug 'mhinz/vim-signify'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
-" " Colors
-Plug 'chriskempson/base16-vim'
-
-" " Comments
+" Comments
 Plug 'tpope/vim-commentary'
+
+" Colors
+Plug 'chriskempson/base16-vim'
 
 " File Navigation
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Plug 'rhysd/vim-grammarous'
-
 " Auto Completion
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'ervandew/supertab'
-" Plug 'davidhalter/jedi-vim'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-" Plug 'w0rp/ale'
 
-" Language Servers and syntax linting
-Plug 'w0rp/ale'
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': 'bash install.sh',
-"     \ }
-
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" Syntax Related
+" " Syntax Related
 Plug 'sheerun/vim-polyglot'
 
 " Organization
 Plug 'vimwiki/vimwiki'
 Plug 'lervag/vimtex'
-
-" Language Specific Tools
-" Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
 
 call plug#end()
 
@@ -98,11 +79,6 @@ map <silent> <C-n> :NERDTreeToggle<cr>
 
 map <F8> :setlocal spell! spelllang=en_us<CR>
 
-" autocmd FileType php setlocal omnifunc=phpactor#Complete
-
-" let g:ale_lint_on_text_changed = 'never'
-" let b:ale_fixers = {'jsx': ['prettier', 'eslint']}
-
 let mapleader=","
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>f :Files<cr>
@@ -114,10 +90,13 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
 command! -nargs=0 Format :call CocAction('format')
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Vue syntax highlighting
+let g:vue_disable_pre_processors=1
+autocmd FileType vue syntax sync fromstart

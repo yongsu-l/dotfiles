@@ -184,8 +184,8 @@ bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle; exec pkill -RT
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle; exec --no-startup-id pkill -RTMIN+10 i3blocks    # mute mic
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 2      # increase screen brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 2    # decrease screen brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10      # increase screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10    # decrease screen brightness
 
 # Media player controls
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause

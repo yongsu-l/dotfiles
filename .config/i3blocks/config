@@ -94,7 +94,7 @@ command=$HOME/.config/i3blocks/scripts/vpn
 interval=10
 
 # [bandwidth]
-# instance=eth0
+# instance=wlp61s0
 # interval=5
 
 # CPU usage
@@ -114,7 +114,7 @@ interval=10
 #
 # The battery instance defaults to 0.
 [battery]
-label=BAT
+# label=BAT
 # label=⚡
 #instance=1
 interval=30
@@ -155,10 +155,10 @@ interval=1
 #
 # bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 # bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
-#[keyindicator]
-#instance=CAPS
-#interval=once
-#signal=11
+# [keyindicator]
+# instance=CAPS
+# interval=once
+# signal=11
 
 #[keyindicator]
 #instance=NUM
