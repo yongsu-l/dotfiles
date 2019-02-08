@@ -6,5 +6,6 @@
   				"javascript",
   				"javascriptreact",
 				"vue"
-  ]
+  ],
+  "coc.preferences.formatOnSaveFiletypes": ["vue", "javascript", "javascriptreact", "javascript.jsx"]
 }

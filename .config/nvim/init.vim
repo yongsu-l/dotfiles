@@ -3,7 +3,7 @@ call plug#begin()
 
 Plug 'editorconfig/editorconfig-vim'
 
-Plug 'christoomey/vim-tmux-navigator'
+" Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 " " Git Commit Visuals
 Plug 'mhinz/vim-signify'
@@ -63,6 +63,8 @@ set statusline +=%f\ %h%m%r%w
 set statusline +=%y
 " GitBranch need fugitive
 set statusline +=\ %{fugitive#statusline()}
+" Coc Integram
+set statusline +=\ %{coc#status()}
 " Total number of lines in the file
 set statusline +=%=%-10L
 " Line, column and percentage
@@ -100,3 +102,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Vue syntax highlighting
 let g:vue_disable_pre_processors=1
 autocmd FileType vue syntax sync fromstart
+
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+
+let g:vimwiki_list = [{'path': '~/Dropbox/'}]

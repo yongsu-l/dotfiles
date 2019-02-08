@@ -17,6 +17,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 
 export EDITOR='nvim'
+export BROWSER='firefox'
 export PATH=$PATH:$(go env GOPATH)/bin:$HOME/.local/bin:~/.npm-global/bin
 export GOPATH=$HOME/go
 
@@ -26,3 +27,4 @@ export PATH=$PATH:/home/yong/android-studio/bin
 export PATH=$PATH:/home/yong/anaconda3/bin
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+ export PATH=~/.npm-global/bin:$PATH
