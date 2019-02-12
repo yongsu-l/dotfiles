@@ -11,7 +11,7 @@ bindsym $mod+Return exec --no-startup-id termite
 
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown).*$"] kill
 
-bindsym $mod+d exec --no-startup-id dmenu_run -i #dmenu_run #i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -211,7 +211,7 @@ for_window [instance="dropdown"] resize set 625 400
 for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 2
 
-exec --no-startup-id termite --name=dropdown &
+exec --no-startup-id termite --name dropdown &
 
 # Make mpv playing terminal float
 for_window [instance="mpv_float"] floating enable
@@ -223,12 +223,11 @@ for_window [instance="mpv_float"] resize set 450 200
 bindsym Control+q exec --no-startup-id /bin/false
 
 ## AUTO START ##
-# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id feh --bg-fill $wallpaper
 exec --no-startup-id dunst
 exec --no-startup-id compton --config ~/.config/compton/compton.conf -b
 exec --no-startup-id udiskie -an &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id redshift -O 7600
-exec --no-startup-id nm-applet
+exec --no-startup-id redshift
 exec --no-startup-id ibus-daemon -drx
+exec --no-startup-id xinput disable 11
