@@ -1,5 +1,8 @@
 {
   "prettier.eslintIntegration": true,
+  "coc.preferences.triggerAfterInsertEnter": false,
+  "coc.preferences.noselect": false,
+  "eslint.filetypes": ["javascript", "javascriptreact", "vue"],
   "languageserver": {
     "cquery": {
       "command": "cquery",

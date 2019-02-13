@@ -26,6 +26,7 @@ Plug 'sheerun/vim-polyglot'
 
 " Organization
 Plug 'vimwiki/vimwiki'
+Plug 'itchyny/calendar.vim'
 Plug 'lervag/vimtex'
 
 call plug#end()
@@ -105,3 +106,6 @@ autocmd FileType vue syntax sync fromstart
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
 let g:vimwiki_list = [{'path': '~/Dropbox/'}]
+
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
