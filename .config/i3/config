@@ -11,7 +11,7 @@ bindsym $mod+Return exec --no-startup-id termite
 
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown).*$"] kill
 
-bindsym $mod+d exec --no-startup-id rofi -modi drun -show drun
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -139,7 +139,7 @@ bindsym $mod+Shift+e      mode $sysmenu
 
 mode $sysmenu {
     bindsym k         exit
-    bindsym l         exec --no-startup-id i3lock -c 333333, mode "default"
+    bindsym l         exec --no-startup-id i3lock -c 000000, mode "default"
     bindsym s         exec --no-startup-id systemctl suspend, mode "default"
     bindsym p         exec shutdown -P now
     bindsym r         exec shutdown -r now

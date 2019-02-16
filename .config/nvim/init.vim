@@ -21,6 +21,7 @@ Plug 'junegunn/fzf.vim'
 
 " Auto Completion
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'w0rp/ale'
 
 " " Syntax Related
 Plug 'sheerun/vim-polyglot'
@@ -28,6 +29,7 @@ Plug 'sheerun/vim-polyglot'
 " Organization
 Plug 'vimwiki/vimwiki'
 Plug 'lervag/vimtex'
+Plug 'itchyny/calendar.vim'
 
 call plug#end()
 
@@ -105,4 +107,12 @@ autocmd FileType vue syntax sync fromstart
 
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+
 let g:vimwiki_list = [{'path': '~/Dropbox/'}]
+
+let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
+let g:ale_fixers = {
+\   'vue': ['prettier', 'eslint'],
+\}

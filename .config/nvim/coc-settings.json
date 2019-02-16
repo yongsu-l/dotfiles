@@ -1,11 +1,6 @@
 {
-  "prettier.eslintIntegration": true,
   "coc.preferences.triggerAfterInsertEnter": false,
   "coc.preferences.noselect": false,
-  "eslint.filetypes": [
-  				"javascript",
-  				"javascriptreact",
-				"vue"
-  ],
-  "coc.preferences.formatOnSaveFiletypes": ["vue", "javascript", "javascriptreact", "javascript.jsx"]
+  "eslint.filetypes": ["javascript", "javascriptreact", "vue"],
+  "eslint.autoFixOnSave": true
 }

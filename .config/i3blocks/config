@@ -85,7 +85,7 @@ interval=10
 
 [wifi]
 command=$HOME/.config/i3blocks/scripts/wifi
-instance=wlp61s0
+instance=wlan0
 interval=10
 # separator=false
 
