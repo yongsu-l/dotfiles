@@ -3,7 +3,6 @@ call plug#begin()
 
 Plug 'editorconfig/editorconfig-vim'
 
-" Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 " " Git Commit Visuals
 Plug 'mhinz/vim-signify'
@@ -20,8 +19,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Auto Completion
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+
+" JS Linter
 Plug 'w0rp/ale'
+
+Plug 'ervandew/supertab'
 
 " " Syntax Related
 Plug 'sheerun/vim-polyglot'
@@ -65,8 +68,8 @@ set statusline +=%f\ %h%m%r%w
 set statusline +=%y
 " GitBranch need fugitive
 set statusline +=\ %{fugitive#statusline()}
-" Coc Integram
-set statusline +=\ %{coc#status()}
+" " Coc Integram
+" set statusline +=\ %{coc#status()}
 " Total number of lines in the file
 set statusline +=%=%-10L
 " Line, column and percentage
@@ -88,18 +91,18 @@ nnoremap <leader><space> :noh<CR>
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>b :Buffers<cr>
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" " Remap keys for gotos
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
 
-command! -nargs=0 Format :call CocAction('format')
+" command! -nargs=0 Format :call CocAction('format')
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Vue syntax highlighting
 let g:vue_disable_pre_processors=1
@@ -116,3 +119,5 @@ let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
 let g:ale_fixers = {
 \   'vue': ['prettier', 'eslint'],
 \}
+
+let g:SuperTabDefaultCompletionType = "context"

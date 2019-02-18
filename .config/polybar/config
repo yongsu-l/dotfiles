@@ -24,9 +24,9 @@ magenta = #b48ead
 cyan = #96b5b4
 
 [bar/top]
-monitor = LVDS1
+monitor = eDP1
 width = 100%
-height = 18
+height = 30
 #radius = 0
 #fixed-center = true
 bottom = false
@@ -46,9 +46,9 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = "SourceCodePro:size=7;2"
-font-1 = "SourceHanSans:size=7;2"
-font-2 = "WunconSiji:size=9:antialias=false;2"
+font-0 = "SourceCodePro:size=12;2"
+font-1 = "SourceHanSans:size=12;2"
+font-2 = "WunconSiji:size=20:antialias=false;2"
 
 modules-left = system i3 xwindow
 modules-center = 

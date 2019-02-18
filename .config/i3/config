@@ -12,6 +12,7 @@ bindsym $mod+Return exec --no-startup-id termite
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown).*$"] kill
 
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+p exec --no-startup-id passmenu
 
 # change focus
 bindsym $mod+h focus left
@@ -231,3 +232,4 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id env GDK_SCALE=1.5 ibus-daemon -drx
 exec --no-startup-id xinput disable 11
 exec --no-startup-id redshift
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
