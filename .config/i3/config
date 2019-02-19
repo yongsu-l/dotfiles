@@ -12,7 +12,7 @@ bindsym $mod+Return exec --no-startup-id termite
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown).*$"] kill
 
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+p exec --no-startup-id passmenu
+bindsym $mod+p exec --no-startup-id passmenu -i
 
 # change focus
 bindsym $mod+h focus left
