@@ -26,7 +26,6 @@ export PATH=$PATH:/home/yong/android-studio/bin
 export PATH=$PATH:/home/yong/anaconda3/bin
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH=~/.npm-global/bin:$PATH
 
 # Activate conda when needed
 alias anaconda='source /home/yong/.bashrc-conda'
