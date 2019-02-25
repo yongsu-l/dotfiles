@@ -37,6 +37,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'vimwiki/vimwiki'
 Plug 'lervag/vimtex'
 Plug 'junegunn/goyo.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'daviesjamie/vim-base16-lightline'
 
 call plug#end()
 
@@ -70,22 +72,6 @@ set ignorecase
 set incsearch
 set hlsearch
 
-" Statusline
-set statusline =
-" File description
-set statusline +=%f\ %h%m%r%w
-" Filetype
-set statusline +=%y
-" GitBranch need fugitive
-set statusline +=\ %{fugitive#statusline()}
-" " Coc Integram
-set statusline +=\ %{coc#status()}
-" Total number of lines in the file
-set statusline +=%=%-10L
-" Line, column and percentage
-set statusline +=%=%-14.(%l,%c%V%)\ %P
-
-" let base16colorspace=256
 set termguicolors
 colorscheme base16-default-dark
 
@@ -126,25 +112,37 @@ let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
 
 let g:fzf_action = {
-	\ 'ctrl-t': 'tab split',
-	\ 'ctrl-s': 'split',
-	\ 'ctrl-v': 'vsplit' }
+			\ 'ctrl-t': 'tab split',
+			\ 'ctrl-s': 'split',
+			\ 'ctrl-v': 'vsplit' }
 
 function! s:goyo_enter()
-  silent !tmux set status off
-  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
+	silent !tmux set status off
+	silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+	set noshowmode
+	set noshowcmd
+	set scrolloff=999
 endfunction
 
 function! s:goyo_leave()
-  silent !tmux set status on
-  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  set showmode
-  set showcmd
-  set scrolloff=5
+	silent !tmux set status on
+	silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+	set showmode
+	set showcmd
+	set scrolloff=5
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+let g:lightline = {
+			\ 'colorscheme': 'base16',
+			\ 'active': {
+			\   'left': [ [ 'mode', 'paste' ],
+			\             [ 'cocstatus', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+			\ },
+			\ 'component_function': {
+			\   'gitbranch': 'fugitive#head',
+			\   'cocstatus': 'coc#status'
+			\ },
+			\ }
