@@ -182,7 +182,7 @@ bar {
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+; exec pkill -RTMIN+10 i3blocks 
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%-; exec pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle; exec pkill -RTMIN+10 i3blocks
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle; exec --no-startup-id pkill -RTMIN+10 i3blocks    # mute mic
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 4 toggle; # mute mic
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5      # increase screen brightness
@@ -232,4 +232,3 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id env GDK_SCALE=1.5 ibus-daemon -drx
 exec --no-startup-id xinput disable 11
 exec --no-startup-id redshift
-# exec_always --no-startup-id $HOME/.config/polybar/launch.sh

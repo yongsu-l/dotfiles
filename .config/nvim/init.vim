@@ -36,12 +36,9 @@ Plug 'sheerun/vim-polyglot'
 " Organization
 Plug 'vimwiki/vimwiki'
 Plug 'lervag/vimtex'
-Plug 'itchyny/calendar.vim'
 Plug 'junegunn/goyo.vim'
 
 call plug#end()
-
-set cmdheight=2
 
 set hidden
 
@@ -112,9 +109,7 @@ nmap <silent> gr <Plug>(coc-references)
 
 command! -nargs=0 Format :call CocAction('format')
 
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-" let g:coc_snippet_next = '<TAB>'
-" let g:coc_snippet_prev = '<S-TAB>'
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
