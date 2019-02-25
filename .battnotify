@@ -1,0 +1,8 @@
+#!/bin/bash
+export DISPLAY=:0
+
+battery_level=`acpi -b | grep -P -o '[0-9]+(?=%)'`
+if [ $battery_level -le 10 ]
+then
+    notify-send -u critical -t 3000 "Battery low" "Battery level is ${battery_level}%!"
+fi
