@@ -7,7 +7,7 @@ set $wallpaper ~/Pictures/wallpapers/lonely.jpg
 font pango:Hack 10
 floating_modifier $mod
 
-bindsym $mod+Return exec --no-startup-id termite
+bindsym $mod+Return exec --no-startup-id st
 
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown).*$"] kill
 
@@ -183,7 +183,7 @@ bar {
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+; exec pkill -RTMIN+10 i3blocks 
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%-; exec pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle; exec pkill -RTMIN+10 i3blocks
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 4 toggle; # mute mic
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5      # increase screen brightness
@@ -213,7 +213,8 @@ for_window [instance="dropdown"] resize set 1000 600
 for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 2
 
-exec --no-startup-id termite --name=dropdown &
+exec --no-startup-id st -n dropdown &
+# exec --no-startup-id --title dropdown &
 
 # Make mpv playing terminal float
 for_window [instance="mpv_float"] floating enable
@@ -230,6 +231,4 @@ exec --no-startup-id dunst
 exec --no-startup-id compton --config ~/.config/compton/compton.conf -b
 exec --no-startup-id udiskie -an &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id env GDK_SCALE=1.5 ibus-daemon -drx
 exec --no-startup-id xinput disable 11
-exec --no-startup-id redshift
