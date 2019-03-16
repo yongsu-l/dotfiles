@@ -4,32 +4,33 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
 
 " Comments
 Plug 'tpope/vim-commentary'
 
 " Colors
 Plug 'chriskempson/base16-vim'
-
-" Development
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'scrooloose/nerdtree'
 
 " File Navigation
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" " Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'itchyny/lightline.vim'
 
 " Linter
 Plug 'w0rp/ale'
-Plug 'sheerun/vim-polyglot'
 
 " Organization
-Plug 'lervag/vimtex'
 Plug 'junegunn/goyo.vim'
 Plug 'vimwiki/vimwiki'
+
+" Syntax
+Plug 'posva/vim-vue'
+Plug 'pangloss/vim-javascript'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
@@ -62,15 +63,7 @@ set incsearch
 set hlsearch
 
 set termguicolors
-
-" Statusline
-if filereadable(expand("~/.config/nvim/statusline.vim"))
-	exec 'source ~/.config/nvim/statusline.vim'
-endif
-
 colorscheme base16-default-dark
-
-map <F8> :setlocal spell! spelllang=en_us<CR>
 
 let mapleader=","
 nnoremap <leader><space> :noh<CR>
@@ -87,13 +80,32 @@ let g:fzf_action = {
 			\ 'ctrl-v': 'vsplit' }
 
 let g:vimwiki_list = [{'path': '~/Dropbox/',
-				   \ 'syntax': 'markdown', 'ext': '.md'}]
+			\ 'syntax': 'markdown', 'ext': '.md'}]
+
+let g:vimwiki_global_ext = 0
 
 let g:goyo_width = 82
 
-let g:lightline = {
-	\ 'colorscheme': 'seoul256',
-	\ }
-
-
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+
+" don't give |ins-completion-menu| messages.
+" set shortmess+=c
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+map <C-n> :NERDTreeToggle<CR>
+
+let g:lightline = {
+      \ 'colorscheme': 'base16',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }

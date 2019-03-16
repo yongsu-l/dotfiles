@@ -1,5 +1,8 @@
 " In ~/.vim/ftplugin/python.vim
-autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+
+set nolinebreak
+set nowrap
 
 " Check Python files with flake8 and pylint.
 let b:ale_linters = ['flake8']

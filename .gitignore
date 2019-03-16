@@ -5,3 +5,4 @@
 .config/ranger/devicons.py
 .config/ranger/__pycache__/
 .config/ranger/plugins/
+.ccls-cache
