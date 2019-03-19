@@ -3,7 +3,7 @@
 #audible_bell = false
 #clickable_url = true
 #dynamic_title = true
-font = Monospace 10
+font = Monospace 14
 # font = SauceCodePro Nerd Font Mono Semibold 10
 #fullscreen = true
 #geometry = 640x480

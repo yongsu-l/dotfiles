@@ -175,7 +175,7 @@ bar {
 	font pango:Hack 8
 	position top
 	status_command i3blocks
-	tray_output none
+	tray_output primary
 }
 
 ## MEDIA CONTROLS ##
@@ -220,8 +220,6 @@ exec --no-startup-id st -n dropdown &
 for_window [instance="mpv_float"] floating enable
 for_window [instance="mpv_float"] resize set 450 200
 
-# new_window pixel 0
-
 ## DISABLE CTRL + Q
 bindsym Control+q exec --no-startup-id /bin/false
 
@@ -230,3 +228,4 @@ exec --no-startup-id feh --bg-fill $wallpaper
 exec --no-startup-id dunst
 exec --no-startup-id udiskie -an
 exec --no-startup-id xinput disable 11
+# exec --no-startup-id $HOME/.config/polybar/launch.sh
