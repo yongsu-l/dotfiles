@@ -17,7 +17,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'itchyny/lightline.vim'
 
 " Linter
@@ -30,7 +30,8 @@ Plug 'vimwiki/vimwiki'
 " Syntax
 Plug 'posva/vim-vue'
 Plug 'pangloss/vim-javascript'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+Plug 'fatih/vim-go'
 
 call plug#end()
 
