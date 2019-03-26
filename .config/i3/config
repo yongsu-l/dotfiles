@@ -12,7 +12,6 @@ bindsym $mod+Return exec --no-startup-id st
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown).*$"] kill
 
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -h 28'
-# bindsym $mod+p exec --no-startup-id passmenu -i
 bindsym $mod+p exec --no-startup-id keepmenu
 
 # change focus
@@ -186,8 +185,8 @@ bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle; exec pkill -RT
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5      # increase screen brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5    # decrease screen brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 2      # increase screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 2    # decrease screen brightness
 
 # Media player controls
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
@@ -228,4 +227,4 @@ exec --no-startup-id feh --bg-fill $wallpaper
 exec --no-startup-id dunst
 exec --no-startup-id udiskie -an
 exec --no-startup-id xinput disable 11
-# exec --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id compton -b --backend glx --vsync opengl-mswc

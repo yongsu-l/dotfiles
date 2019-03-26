@@ -22,10 +22,7 @@
     horizontal_padding = 8
     separator_color = "#afa9b3"
     startup_notification = false
-    #icon_position = left
-    #icon_folders = /usr/share/icons/elementary/actions/16/
     frame_width = 2
-    # frame_color = "#c0c5ce"
 
 [shortcuts]
     close = ctrl+space
@@ -41,8 +38,8 @@
 
 [urgency_normal]
     background = "#181818"
-    foreground = "#8fa1b3"
-    frame_color = "#8fa1b3"
+    foreground = "#c0c5ce"
+    frame_color = "#c0c5ce"
     timeout = 20
 
 [urgency_critical]

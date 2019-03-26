@@ -5,20 +5,19 @@ Plug 'editorconfig/editorconfig-vim'
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
+Plug 'mhinz/vim-signify'
 
 " Comments
 Plug 'tpope/vim-commentary'
 
 " Colors
 Plug 'chriskempson/base16-vim'
-Plug 'scrooloose/nerdtree'
 
 " File Navigation
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-Plug 'itchyny/lightline.vim'
+Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ervandew/supertab'
 
 " Linter
 Plug 'w0rp/ale'
@@ -28,21 +27,22 @@ Plug 'junegunn/goyo.vim'
 Plug 'vimwiki/vimwiki'
 
 " Syntax
-Plug 'posva/vim-vue'
 Plug 'pangloss/vim-javascript'
+Plug 'posva/vim-vue'
 
 Plug 'fatih/vim-go'
 
 call plug#end()
 
+" set path=.,**
+
 set hidden
 
 set signcolumn=yes
 
+set completeopt=menu,preview
+
 set list listchars=tab:│·,trail:·,extends:→
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
 
 set encoding=utf-8
 
@@ -55,7 +55,8 @@ filetype plugin indent on
 set autoindent
 
 set number
-set noshowcmd
+" Show command being typed
+set showcmd
 set cursorline
 set showmatch
 
@@ -71,6 +72,7 @@ nnoremap <leader><space> :noh<CR>
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>s :Snippets<cr>
 nnoremap <leader>b :Buffers<cr>
+nnoremap <leader>t :Tags<cr>
 
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -85,28 +87,33 @@ let g:vimwiki_list = [{'path': '~/Dropbox/',
 
 let g:vimwiki_global_ext = 0
 
-let g:goyo_width = 82
+let g:python_host_prog = '/home/yong/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/home/yong/.pyenv/versions/neovim3/bin/python'
 
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+" let g:gutentags_ctags_tagfile = '.git/tags'
 
-" don't give |ins-completion-menu| messages.
-" set shortmess+=c
+let g:gutentags_file_list_command = {
+			\ 'markers': {
+			\ '.git': 'git ls-files',
+			\ },
+			\ }
 
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" Statusline
+set statusline =
+" File description
+set statusline +=%f\ %h%m%r%w
+" Filetype
+set statusline +=%y
+" GitBranch and Gutentags
+set statusline +=\ %{fugitive#statusline()}
+set statusline+=%{gutentags#statusline()}
+" Total number of lines in the file
+set statusline +=%=%-10L
+" Line, column and percentage
+set statusline +=%=%-14.(%l,%c%V%)\ %P
 
-map <C-n> :NERDTreeToggle<CR>
+autocmd InsertEnter * let save_cwd = getcwd() | lcd %:p:h
+autocmd InsertLeave * set noautochdir | execute 'lcd' fnameescape(save_cwd)
 
-let g:lightline = {
-      \ 'colorscheme': 'base16',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
+autocmd FileType vue syntax sync fromstart
+let g:vue_disable_pre_processors=1

@@ -27,3 +27,6 @@ export PATH=$PATH:/home/yong/.gem/ruby/2.6.0/bin
 
 # Activate conda when needed
 alias anaconda='source /home/yong/.bashrc-conda'
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
