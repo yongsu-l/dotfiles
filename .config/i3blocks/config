@@ -28,6 +28,11 @@ command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=10
 markup=none
 
+[xtitle]
+command=xtitle -s -t 50
+interval=persist
+color=#ffffff
+
 # Volume indicator
 #
 # The first parameter sets the step (and units to display)
@@ -36,7 +41,7 @@ markup=none
 [volume]
 label=VOL
 instance=Master
-interval=30
+interval=once
 signal=10
 
 # Memory usage
@@ -160,7 +165,12 @@ interval=1
 # interval=once
 # signal=11
 
+# [ibus]
+# command=$HOME/.config/i3blocks/scripts/ibus
+# interval=1
+
 #[keyindicator]
 #instance=NUM
 #interval=once
 #signal=11
+#

@@ -1,5 +1,3 @@
-set tw=80
-set fo+=t
-set linebreak
-set wrap
-set spell spelllang=en_us
+let g:ale_fixers = {
+			\   'tex': ['remove_trailing_lines', 'trim_whitespace'],
+			\}

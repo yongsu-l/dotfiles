@@ -2,17 +2,16 @@
 
 set $mod Mod4
 
-set $wallpaper ~/Pictures/wallpapers/lonely.jpg
+set $wallpaper $HOME/Pictures/wallpapers/lonely.png
 
 font pango:Hack 10
 floating_modifier $mod
 
-bindsym $mod+Return exec --no-startup-id st
+bindsym $mod+Return exec --no-startup-id kitty
 
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown).*$"] kill
 
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -h 28'
-bindsym $mod+p exec --no-startup-id keepmenu
 
 # change focus
 bindsym $mod+h focus left
@@ -41,7 +40,7 @@ bindsym $mod+w layout toggle
 bindsym $mod+e layout toggle split
 
 # default layout container
-workspace_layout stacked
+# workspace_layout 
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle; sticky disable
@@ -140,7 +139,7 @@ bindsym $mod+Shift+e      mode $sysmenu
 
 mode $sysmenu {
 	bindsym k         exit
-		bindsym l         exec --no-startup-id i3lock -c 000000, mode "default"
+		bindsym l         exec --no-startup-id /home/yong/.scripts/lock.sh -c 181818, mode "default"
 		bindsym s         exec --no-startup-id systemctl suspend, mode "default"
 		bindsym p         exec shutdown -P now
 		bindsym r         exec shutdown -r now
@@ -166,9 +165,12 @@ mode $displayMode {
 		bindsym Escape mode "default"
 }
 
-# for_window [class="^.*"] border pixel 2
-# for_window [class="^.*"] move position center
-# smart_borders on
+bindsym $mod+p [class="KeeWeb"] scratchpad show; move position center
+for_window [class="KeeWeb"] floating enable
+for_window [class="KeeWeb"] move scratchpad
+for_window [class="KeeWeb"] border pixel 2
+
+exec --no-startup-id keeweb &
 
 bar {
 	font pango:Hack 8
@@ -179,7 +181,7 @@ bar {
 
 ## MEDIA CONTROLS ##
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+; exec pkill -RTMIN+10 i3blocks 
+bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+; exec pkill -RTMIN+10 i3blocks
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%-; exec pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle; exec pkill -RTMIN+10 i3blocks
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle
@@ -206,14 +208,13 @@ for_window [class="Google-chrome" title="Task Manager"] floating enable
 popup_during_fullscreen leave_fullscreen
 
 # Show the first scratchpad window
-bindsym $mod+u      [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+bindsym $mod+u [instance="dropdown"] scratchpad show; move position center
 for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 1000 600
 for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 2
 
-exec --no-startup-id st -n dropdown &
-# exec --no-startup-id --title dropdown &
+exec --no-startup-id kitty --name dropdown &
 
 # Make mpv playing terminal float
 for_window [instance="mpv_float"] floating enable
@@ -222,9 +223,10 @@ for_window [instance="mpv_float"] resize set 450 200
 ## DISABLE CTRL + Q
 bindsym Control+q exec --no-startup-id /bin/false
 
+for_window [class="^.*"] border pixel 2
+
 ## AUTO START ##
 exec --no-startup-id feh --bg-fill $wallpaper
 exec --no-startup-id dunst
 exec --no-startup-id udiskie -an
-exec --no-startup-id xinput disable 11
-exec --no-startup-id compton -b --backend glx --vsync opengl-mswc
+exec --no-startup-id compton -b --backend glx --vsync
