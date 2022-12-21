@@ -3,8 +3,6 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-unimpaired'
-Plug 'mhinz/vim-signify'
 
 " Comments
 Plug 'tpope/vim-commentary'
@@ -15,14 +13,10 @@ Plug 'chriskempson/base16-vim'
 " File Navigation
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree'
 
 " Writing
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-
-" Linter
-Plug 'w0rp/ale'
 
 " Organization
 Plug 'vimwiki/vimwiki'
