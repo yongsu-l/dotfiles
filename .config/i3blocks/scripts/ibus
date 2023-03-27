@@ -1,5 +1,0 @@
-#!/bin/bash
-
-INPUT=$(ibus engine)
-
-echo $INPUT
