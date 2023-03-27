@@ -20,6 +20,14 @@ local opt = vim.opt
 opt.number = true -- Print line number
 opt.relativenumber = true -- Relative line numbers
 opt.termguicolors = true -- True color support
+opt.splitright = true -- Put new windows right of current
+opt.splitbelow = true -- Put new windows below of current
+opt.grepprg = "rg --vimgrep"
+opt.ignorecase = true -- Ignore case
+opt.inccommand = "nosplit" -- preview incremental substitute
+opt.smartcase = true -- Don't ignore case with capitals
+opt.smartindent = true -- Insert indents automatically
+opt.termguicolors = true -- True color support
 vim.cmd.colorscheme("base16-default-dark") -- colorscheme
 
 local lsp = require('lsp-zero').preset({
