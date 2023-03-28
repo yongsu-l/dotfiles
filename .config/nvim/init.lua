@@ -28,6 +28,13 @@ opt.inccommand = "nosplit" -- preview incremental substitute
 opt.smartcase = true -- Don't ignore case with capitals
 opt.smartindent = true -- Insert indents automatically
 opt.termguicolors = true -- True color support
+
+opt.wildmenu = true
+
+opt.shiftwidth = 4
+opt.softtabstop = 4
+opt.tabstop = 4
+
 vim.cmd.colorscheme("base16-default-dark") -- colorscheme
 
 local lsp = require('lsp-zero').preset({
