@@ -26,11 +26,12 @@ opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true -- Ignore case
 opt.inccommand = "nosplit" -- preview incremental substitute
 opt.smartcase = true -- Don't ignore case with capitals
-opt.smartindent = true -- Insert indents automatically
 opt.termguicolors = true -- True color support
 
 opt.wildmenu = true
 
+opt.smartindent = true -- Insert indents automatically
+opt.shiftround = true
 opt.shiftwidth = 4
 opt.softtabstop = 4
 opt.tabstop = 4
