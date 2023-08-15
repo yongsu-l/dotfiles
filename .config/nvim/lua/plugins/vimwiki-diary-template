@@ -1,0 +1,22 @@
+#!/bin/bash
+
+cat << EOF
+# $(date -u +%Y-%m-%d)
+
+## TODO
+
+### Yesterday
+
+-
+
+### Today
+
+-
+
+## Notes
+
+## How am I feeling in the morning?
+
+## How am I feeling in the afternoon?
+
+EOF
