@@ -70,11 +70,9 @@ require("lazy").setup({
                 configure_diagnostics = true,
             })
 
-            lsp.on_attach(function(client, bufnr)
+            lsp.on_attach(function(client, _)
+                -- disable lsp syntax highlighting
                 client.server_capabilities.semanticTokensProvider = nil
-                lsp.default_keymaps({ buffer = bufnr })
-
-                vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
             end)
 
             lsp.configure('lua_ls', {
@@ -146,6 +144,24 @@ require("lazy").setup({
             require("fidget").setup(opts)
         end
     },
+    -- {
+    --     'lukas-reineke/indent-blankline.nvim',
+    --     config = function()
+    --         require("indent_blankline").setup {
+    --             char = "│",
+    --             show_current_context = true,
+    --             show_current_context_start = true,
+    --         }
+    --     end
+    -- },
+    {
+        "echasnovski/mini.indentscope",
+        event = { "BufReadPre", "BufNewFile" },
+        opts = {
+            symbol = "│",
+            options = { try_as_border = true },
+        },
+    }
 })
 
 ----------------------------------------
@@ -172,21 +188,27 @@ vim.opt.updatetime = 100
 ----------------------------------------
 -- keymaps
 ----------------------------------------
+local keymap = vim.keymap
 
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
-vim.keymap.set("n", "<leader><space>", ":noh<CR>", { desc = "Clear highlight" })
-vim.keymap.set("v", "p", "pgvy", { desc = "Paste in visual mode without copying" })
+keymap.set("n", "<leader><space>", ":noh<CR>", { desc = "Clear highlight" })
+keymap.set("v", "p", "pgvy", { desc = "Paste in visual mode without copying" })
 
-vim.keymap.set("n", "<leader>f", "<cmd>FzfLua files<CR>")
-vim.keymap.set("n", "<leader>b", "<cmd>FzfLua buffers<CR>")
-vim.keymap.set("n", "<leader>/", "<cmd>FzfLua live_grep_glob<CR>")
+keymap.set("n", "<leader>f", "<cmd>FzfLua files<CR>")
+keymap.set("n", "<leader>b", "<cmd>FzfLua buffers<CR>")
+keymap.set("n", "<leader>/", "<cmd>FzfLua live_grep_glob<CR>")
 
-vim.keymap.set("n", "gd", '<cmd>lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<cr>')
-vim.keymap.set("n", "gD", '<cmd>lua require("fzf-lua").lsp_declarations({ jump_to_single_result = true })<cr>')
-vim.keymap.set("n", "gi", '<cmd>lua require("fzf-lua").lsp_implementations({ jump_to_single_result = true })<cr>')
-vim.keymap.set("n", "gi", '<cmd>lua require("fzf-lua").lsp_references({ jump_to_single_result = true })<cr>')
-vim.keymap.set("n", "gca", '<cmd>lua require("fzf-lua").lsp_code_actions({ sync = true })<cr>')
+keymap.set("n", "gd", '<cmd>lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<CR>')
+keymap.set("n", "gD", '<cmd>lua require("fzf-lua").lsp_declarations({ jump_to_single_result = true })<CR>')
+keymap.set("n", "gi", '<cmd>lua require("fzf-lua").lsp_implementations({ jump_to_single_result = true })<CR>')
+keymap.set("n", "gr", '<cmd>lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>')
+keymap.set("n", "<leader>ca", '<cmd>lua require("fzf-lua").lsp_code_actions({ sync = true })<cr>')
+
+keymap.set('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>')
+keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 
 ----------------------------------------
 -- functions
@@ -201,3 +223,24 @@ vim.api.nvim_create_autocmd(
 )
 
 vim.api.nvim_create_user_command('PR', 'terminal gh pr create', { nargs = 0 })
+
+vim.api.nvim_create_user_command('GPush', 'Git --no-pager push', { nargs = 0})
+vim.api.nvim_create_user_command('GPull', 'Git --no-pager pull', { nargs = 0})
+
+
+----------------------------------------
+-- statuslines
+----------------------------------------
+local fn, cmd = vim.fn, vim.cmd
+
+function my_statusline()
+  local branch = fn.FugitiveHead()
+
+  if branch and #branch > 0 then
+    branch = '  '..branch
+  end
+
+  return ' %f%m%=%l:%c'..branch
+end
+
+cmd[[ set statusline=%!luaeval('my_statusline()') ]]
