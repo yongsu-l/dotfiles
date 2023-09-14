@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     { "RRethy/nvim-base16" },
+    { 'echasnovski/mini.base16' },
     { "justinmk/vim-dirvish" },
     {
         "ibhagwan/fzf-lua",
@@ -20,7 +21,7 @@ require("lazy").setup({
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
     {
-        { 
+        {
             "tpope/vim-fugitive",
             config = function(_, _)
                 -- deprecated function that still tab completes
