@@ -14,7 +14,15 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     { "RRethy/nvim-base16" },
     { 'echasnovski/mini.base16' },
-    { "justinmk/vim-dirvish" },
+    -- { "justinmk/vim-dirvish" },
+    {
+        'stevearc/oil.nvim',
+        config = function ()
+            require("oil").setup({
+                -- default_file_explorer = false
+            })
+        end
+    },
     {
         "ibhagwan/fzf-lua",
         -- optional for icon support
@@ -145,16 +153,6 @@ require("lazy").setup({
             require("fidget").setup(opts)
         end
     },
-    -- {
-    --     'lukas-reineke/indent-blankline.nvim',
-    --     config = function()
-    --         require("indent_blankline").setup {
-    --             char = "│",
-    --             show_current_context = true,
-    --             show_current_context_start = true,
-    --         }
-    --     end
-    -- },
     {
         "echasnovski/mini.indentscope",
         event = { "BufReadPre", "BufNewFile" },
@@ -211,6 +209,8 @@ keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
 keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
 keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 
+keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
 ----------------------------------------
 -- functions
 ----------------------------------------
@@ -228,6 +228,14 @@ vim.api.nvim_create_user_command('PR', 'terminal gh pr create', { nargs = 0 })
 vim.api.nvim_create_user_command('GPush', 'Git --no-pager push', { nargs = 0})
 vim.api.nvim_create_user_command('GPull', 'Git --no-pager pull', { nargs = 0})
 
+-- To make GBrowse work with oil.nvim without netrw
+vim.api.nvim_create_user_command(
+  'Browse',
+  function (opts)
+    vim.fn.system { 'open', opts.fargs[1] }
+  end,
+  { nargs = 1 }
+)
 
 ----------------------------------------
 -- statuslines
