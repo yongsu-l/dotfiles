@@ -101,41 +101,18 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         event = { "BufReadPost", "BufNewFile" },
-        dependencies = {
-            {
-                "nvim-treesitter/nvim-treesitter-textobjects",
-                init = function()
-                    -- PERF: no need to load the plugin, if we only need its queries for mini.ai
-                    local plugin = require("lazy.core.config").spec.plugins["nvim-treesitter"]
-                    local opts = require("lazy.core.plugin").values(plugin, "opts", false)
-                    local enabled = false
-                    if opts.textobjects then
-                        for _, mod in ipairs({ "move", "select", "swap", "lsp_interop" }) do
-                            if opts.textobjects[mod] and opts.textobjects[mod].enable then
-                                enabled = true
-                                break
-                            end
-                        end
-                    end
-                    if not enabled then
-                        require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
-                    end
-                end,
-            },
-        },
         opts = {
             highlight = {
                 enable = true
             },
             indent = {
-                enable = true
+                enable = false
             },
             context_commentstring = {
                 enable = true,
                 enable_autocmd = false
             },
         },
-        ---@param opts TSConfig
         config = function(_, opts)
             require("nvim-treesitter.configs").setup(opts)
         end,
@@ -148,7 +125,7 @@ require("lazy").setup({
     },
     {
         "j-hui/fidget.nvim",
-        tag = "legacy",
+        -- tag = "legacy",
         config = function(_, opts)
             require("fidget").setup(opts)
         end
@@ -160,7 +137,8 @@ require("lazy").setup({
             symbol = "│",
             options = { try_as_border = true },
         },
-    }
+    },
+    -- { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }
 })
 
 ----------------------------------------
@@ -179,7 +157,7 @@ vim.opt.ignorecase = true                  -- Ignore case
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
-vim.opt.smarttab = true
+vim.opt.smarttab = false
 vim.opt.tabstop = 4
 
 vim.opt.updatetime = 100
@@ -197,12 +175,15 @@ keymap.set("v", "p", "pgvy", { desc = "Paste in visual mode without copying" })
 keymap.set("n", "<leader>f", "<cmd>FzfLua files<CR>")
 keymap.set("n", "<leader>b", "<cmd>FzfLua buffers<CR>")
 keymap.set("n", "<leader>/", "<cmd>FzfLua live_grep_glob<CR>")
+keymap.set("n", "<leader>,", "<cmd>FzfLua resume<CR>")
 
 keymap.set("n", "gd", '<cmd>lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<CR>')
 keymap.set("n", "gD", '<cmd>lua require("fzf-lua").lsp_declarations({ jump_to_single_result = true })<CR>')
 keymap.set("n", "gi", '<cmd>lua require("fzf-lua").lsp_implementations({ jump_to_single_result = true })<CR>')
 keymap.set("n", "gr", '<cmd>lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>')
 keymap.set("n", "<leader>ca", '<cmd>lua require("fzf-lua").lsp_code_actions({ sync = true })<cr>')
+keymap.set("n", "<C-k>", [[<Cmd>lua require"fzf-lua".builtin()<CR>]], {})
+keymap.set("n", "gx", [[<Cmd>silent !open <cWORD><CR>]], {})
 
 keymap.set('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>')
 keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
