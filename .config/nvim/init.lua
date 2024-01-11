@@ -41,60 +41,88 @@ require("lazy").setup({
     },
     {
         'VonHeikemen/lsp-zero.nvim',
-        dependencies = {
-            -- LSP Support
-            { 'neovim/nvim-lspconfig' }, -- Required
-            {
-                'williamboman/mason.nvim',
-                build = function()
-                    pcall(vim.cmd, 'MasonUpdate')
-                end
-            },                                       -- Optional
-            { 'williamboman/mason-lspconfig.nvim' }, -- Optional
-            { 'lukas-reineke/lsp-format.nvim' },
+        branch = 'v3.x',
+        lazy = true,
+        config = false,
+        init = function()
+            -- Disable automatic setup, we are doing it manually
+            vim.g.lsp_zero_extend_cmp = 0
+            vim.g.lsp_zero_extend_lspconfig = 0
+        end,
+    },
+    {
+        'williamboman/mason.nvim',
+        lazy = false,
+        config = true,
+    },
 
-            -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },     -- Required
-            { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+    -- Autocompletion
+    {
+        'hrsh7th/nvim-cmp',
+        event = 'InsertEnter',
+        dependencies = {
+            {'L3MON4D3/LuaSnip'},
             { 'hrsh7th/cmp-buffer' },   -- Required
             { 'hrsh7th/cmp-path' },     -- Required
-            { 'L3MON4D3/LuaSnip' },     -- Required
         },
-        config = function(_, _)
-            vim.lsp.set_log_level("off")
+        config = function()
+            -- Here is where you configure the autocompletion settings.
+            local lsp_zero = require('lsp-zero')
+            lsp_zero.extend_cmp()
+
+            -- And you can configure cmp even more, if you want to.
             local cmp = require('cmp')
 
             cmp.setup({
-                mapping = {
+                formatting = lsp_zero.cmp_format(),
+                mapping = cmp.mapping.preset.insert({
+                    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-d>'] = cmp.mapping.scroll_docs(4),
                     ['<CR>'] = cmp.mapping.confirm({ select = false }),
-                },
+                }),
                 sources = {
                     { name = 'path' },
                     { name = 'buffer' },
                     { name = 'nvim_lsp' },
                 }
             })
+        end
+    },
 
-            local lsp = require('lsp-zero').preset({
-                configure_diagnostics = true,
-            })
+    -- LSP
+    {
+        'neovim/nvim-lspconfig',
+        cmd = {'LspInfo', 'LspInstall', 'LspStart'},
+        event = {'BufReadPre', 'BufNewFile'},
+        dependencies = {
+            {'hrsh7th/cmp-nvim-lsp'},
+            {'williamboman/mason-lspconfig.nvim'},
+        },
+        config = function()
+            vim.lsp.set_log_level("off")
+            -- This is where all the LSP shenanigans will live
+            local lsp_zero = require('lsp-zero')
+            lsp_zero.extend_lspconfig()
 
-            lsp.on_attach(function(client, _)
-                -- disable lsp syntax highlighting
-                client.server_capabilities.semanticTokensProvider = nil
+            --- if you want to know more about lsp-zero and mason.nvim
+            --- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
+            lsp_zero.on_attach(function(client, bufnr)
+                -- see :help lsp-zero-keybindings
+                -- to learn the available actions
+                lsp_zero.default_keymaps({buffer = bufnr})
             end)
 
-            lsp.configure('lua_ls', {
-                settings = {
-                    Lua = {
-                        diagnostics = {
-                            globals = { 'silent', 'vim' }
-                        }
-                    }
+            require('mason-lspconfig').setup({
+                ensure_installed = {},
+                handlers = {
+                    lsp_zero.default_setup,
+                    lua_ls = function()
+                        -- (Optional) Configure lua language server for neovim
+                        local lua_opts = lsp_zero.nvim_lua_ls()
+                        require('lspconfig').lua_ls.setup(lua_opts)
+                    end,
                 }
             })
-
-            lsp.setup()
         end
     },
     {
@@ -157,7 +185,7 @@ vim.opt.ignorecase = true                  -- Ignore case
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
-vim.opt.smarttab = false
+-- vim.opt.smarttab = false
 vim.opt.tabstop = 4
 
 vim.opt.updatetime = 100
