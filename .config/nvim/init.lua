@@ -13,8 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     { "RRethy/nvim-base16" },
-    { 'echasnovski/mini.base16' },
-    -- { "justinmk/vim-dirvish" },
     {
         'stevearc/oil.nvim',
         config = function ()
@@ -104,6 +102,17 @@ require("lazy").setup({
             local lsp_zero = require('lsp-zero')
             lsp_zero.extend_lspconfig()
 
+            lsp_zero.format_on_save({
+                format_opts = {
+                    async = true,
+                    timeout_ms = 10000,
+                },
+                servers = {
+                    ['gopls'] = { 'go' },
+                }
+            })
+
+
             --- if you want to know more about lsp-zero and mason.nvim
             --- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
             lsp_zero.on_attach(function(client, bufnr)
@@ -191,6 +200,9 @@ vim.opt.softtabstop = 4
 vim.opt.tabstop = 4
 
 vim.opt.updatetime = 100
+
+-- Disable mouse
+vim.opt.mouse = nil
 
 ----------------------------------------
 -- keymaps
