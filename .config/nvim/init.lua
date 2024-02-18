@@ -17,7 +17,9 @@ require("lazy").setup({
 		"stevearc/oil.nvim",
 		config = function()
 			require("oil").setup({
-				-- default_file_explorer = false
+				view_opetions = {
+					show_hidden = true,
+				},
 			})
 		end,
 	},
@@ -29,7 +31,6 @@ require("lazy").setup({
 	{
 		{
 			"tpope/vim-fugitive",
-			dependencies = { "sindrets/diffview.nvim" },
 			config = function(_, _)
 				-- deprecated function that still tab completes
 				vim.api.nvim_del_user_command("Gbrowse")
@@ -96,6 +97,7 @@ require("lazy").setup({
 		dependencies = {
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "williamboman/mason-lspconfig.nvim" },
+			{ "folke/trouble.nvim" },
 		},
 		config = function()
 			vim.lsp.set_log_level("off")
@@ -110,6 +112,7 @@ require("lazy").setup({
 				},
 				servers = {
 					["gopls"] = { "go" },
+					["terraform-ls"] = { "terraform" },
 				},
 			})
 
@@ -172,6 +175,9 @@ require("lazy").setup({
 	{
 		"echasnovski/mini.indentscope",
 		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			vim.cmd("au TermOpen * lua vim.b.minicursorword_disable = true")
+		end,
 		opts = {
 			symbol = "│",
 			options = { try_as_border = true },
