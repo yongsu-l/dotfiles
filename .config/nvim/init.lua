@@ -275,3 +275,6 @@ function my_statusline()
 end
 
 cmd([[ set statusline=%!luaeval('my_statusline()') ]])
+
+-- Resize window when we resize the terminal / tmux
+vim.api.nvim_command('autocmd VimResized * wincmd =')
