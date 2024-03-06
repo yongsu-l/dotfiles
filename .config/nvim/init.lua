@@ -127,7 +127,7 @@ require("lazy").setup({
 			end)
 
 			require("mason-lspconfig").setup({
-				ensure_installed = {},
+				ensure_installed = {'gopls', 'tsserver', 'terraformls', 'ruby_ls', 'lua_ls'},
 				handlers = {
 					lsp_zero.default_setup,
 					lua_ls = function()
@@ -135,12 +135,23 @@ require("lazy").setup({
 						local lua_opts = lsp_zero.nvim_lua_ls()
 						require("lspconfig").lua_ls.setup(lua_opts)
 					end,
+					gopls = function()
+						-- (Optional) Configure lua language server for neovim
+						require("lspconfig").gopls.setup({
+                            build = {
+                                buildFlags = {
+                                    "-mod=readonly"
+                                },
+                                allowModfileModifications = false
+                            },
+                        })
+					end,
 				},
 			})
-		end,
+        end,
 	},
 	{
-		"nvim-treesitter/nvim-treesitter",
+		"nvim-,reesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		event = { "BufReadPost", "BufNewFile" },
 		opts = {
