@@ -138,12 +138,14 @@ require("lazy").setup({
 					gopls = function()
 						-- (Optional) Configure lua language server for neovim
 						require("lspconfig").gopls.setup({
-                            build = {
-                                buildFlags = {
-                                    "-mod=readonly"
+                            settings = {
+                                build = {
+                                    buildFlags = {
+                                        "-mod=readonly"
+                                    },
+                                    allowModfileModifications = false
                                 },
-                                allowModfileModifications = false
-                            },
+                            }
                         })
 					end,
 				},
@@ -220,6 +222,9 @@ vim.opt.updatetime = 100
 
 -- Disable mouse
 vim.opt.mouse = nil
+
+-- Disable swap
+vim.opt.swapfile = false
 
 ----------------------------------------
 -- keymaps
