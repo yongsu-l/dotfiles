@@ -136,13 +136,10 @@ require("lazy").setup({
 						require("lspconfig").lua_ls.setup(lua_opts)
 					end,
 					gopls = function()
-						-- (Optional) Configure lua language server for neovim
+						-- Prevent gopls from updating the mod files
 						require("lspconfig").gopls.setup({
-                            ["build.buildFlags"] = { "-mod=readonly" },
-                            ["build.allowModfileModifications"] = { "-mod=readonly" },
-                                -- -- buildFlags = {
-                                -- allowModfileModifications = false
-                            -- },
+                            ["build.buildFlags"] = {"-mod=readonly"},
+                            ["build.allowModfileModifications"] = false
                         })
 					end,
 				},
@@ -150,7 +147,7 @@ require("lazy").setup({
         end,
 	},
 	{
-		"nvim-,reesitter/nvim-treesitter",
+		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		event = { "BufReadPost", "BufNewFile" },
 		opts = {
@@ -164,6 +161,7 @@ require("lazy").setup({
 				enable = true,
 				enable_autocmd = false,
 			},
+            ensure_installed = { "go", "lua", "vim", "vimdoc", "typescript", "terraform", "ruby", "rust" }
 		},
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
