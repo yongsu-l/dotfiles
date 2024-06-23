@@ -27,6 +27,9 @@ require("lazy").setup({
 		"ibhagwan/fzf-lua",
 		-- optional for icon support
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function ()
+            require ("fzf-lua").setup({ 'default-title', defaults = { formatter = 'path.filename_first' }})
+        end
 	},
 	{
 		{
@@ -97,7 +100,6 @@ require("lazy").setup({
 		dependencies = {
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "williamboman/mason-lspconfig.nvim" },
-			{ "folke/trouble.nvim" },
 		},
 		config = function()
 			vim.lsp.set_log_level("off")
@@ -112,7 +114,7 @@ require("lazy").setup({
 				},
 				servers = {
 					["gopls"] = { "go" },
-					["terraform-ls"] = { "terraform" },
+					["terraformls"] = { "terraform" },
 				},
 			})
 
@@ -127,7 +129,7 @@ require("lazy").setup({
 			end)
 
 			require("mason-lspconfig").setup({
-				ensure_installed = {"gopls", "tsserver", "terraformls", "ruby_ls", "lua_ls"},
+				ensure_installed = {"gopls", "tsserver", "terraformls", "lua_ls"},
 				handlers = {
 					lsp_zero.default_setup,
 					lua_ls = function()
@@ -135,17 +137,28 @@ require("lazy").setup({
 						local lua_opts = lsp_zero.nvim_lua_ls()
 						require("lspconfig").lua_ls.setup(lua_opts)
 					end,
-					gopls = function()
-						-- Prevent gopls from updating the mod files
-						require("lspconfig").gopls.setup({
-                            ["build.buildFlags"] = {"-mod=readonly"},
-                            ["build.allowModfileModifications"] = false
+                    gopls = function()
+                        require("lspconfig").gopls.setup({
+                            settings = {
+                                gopls = {
+                                    ["build.buildFlags"] = {"-mod=readonly"},
+                                }
+                            }
                         })
-					end,
+                    end,
 				},
 			})
         end,
 	},
+    {
+        "folke/trouble.nvim",
+        cmd = "Trouble",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {},
+        -- opts = {
+        --     mode = "document_diagnostics",
+        -- },
+    },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
@@ -191,7 +204,60 @@ require("lazy").setup({
 			options = { try_as_border = true },
 		},
 	},
-	-- { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }
+    {
+        "olexsmir/gopher.nvim",
+        ft = "go",
+        -- branch = "develop", -- if you want develop branch
+        -- keep in mind, it might break everything
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "mfussenegger/nvim-dap", -- (optional) only if you use `gopher.dap`
+        },
+        -- (optional) will update plugin's deps on every update
+        build = function()
+            vim.cmd.GoInstallDeps()
+        end,
+        ---@type gopher.Config
+        opts = {},
+    },
+    {
+        "ggandor/leap.nvim",
+        enabled = true,
+        keys = {
+            { "s", mode = { "n", "x", "o" }, desc = "Leap Forward to" },
+            { "S", mode = { "n", "x", "o" }, desc = "Leap Backward to" },
+        },
+        config = function(_, opts)
+            local leap = require("leap")
+            for k, v in pairs(opts) do
+                leap.opts[k] = v
+            end
+            leap.add_default_mappings(true)
+            vim.keymap.del({ "x", "o" }, "x")
+            vim.keymap.del({ "x", "o" }, "X")
+        end,
+    },
+    -- {
+    --     "folke/flash.nvim",
+    --     event = "VeryLazy",
+    --     ---@type Flash.Config
+    --     opts = {
+    --         modes = {
+    --             search = {
+    --                 enabled = true
+    --             }
+    --         }
+    --     },
+    --     -- stylua: ignore
+    --     keys = {
+    --         { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+    --         { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    --         { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+    --         { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+    --         { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    --     },
+    -- }
 })
 
 ----------------------------------------
