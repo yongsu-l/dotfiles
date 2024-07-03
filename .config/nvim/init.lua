@@ -302,6 +302,9 @@ keymap.set("n", "<leader>b", "<cmd>FzfLua buffers<CR>")
 keymap.set("n", "<leader>/", "<cmd>FzfLua live_grep_glob<CR>")
 keymap.set("n", "<leader>,", "<cmd>FzfLua resume<CR>")
 
+keymap.set("n", "<leader>v", "<cmd>FzfLua grep_cword<CR>")
+keymap.set("v", "<leader>v", "<cmd>FzfLua grep_visual<CR>")
+
 keymap.set("n", "gd", '<cmd>lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<CR>')
 keymap.set("n", "gD", '<cmd>lua require("fzf-lua").lsp_declarations({ jump_to_single_result = true })<CR>')
 keymap.set("n", "gi", '<cmd>lua require("fzf-lua").lsp_implementations({ jump_to_single_result = true })<CR>')
@@ -316,6 +319,23 @@ keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
 keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 
 keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+----------------------------------------
+-- LSP
+----------------------------------------
+vim.diagnostic.config({
+    virtual_text = false -- turn off inline diagnostics
+})
+
+vim.api.nvim_create_augroup('diagnostics', { clear = true })
+
+-- automatically populate loclisfunctionst
+vim.api.nvim_create_autocmd('DiagnosticChanged', {
+    group = 'diagnostics',
+    callback = function()
+        vim.diagnostic.setloclist({ open = false })
+    end,
+})
 
 ----------------------------------------
 -- functions
@@ -355,3 +375,12 @@ cmd([[ set statusline=%!luaeval('my_statusline()') ]])
 
 -- Resize window when we resize the terminal / tmux
 vim.api.nvim_command('autocmd VimResized * wincmd =')
+
+vim.api.nvim_create_augroup('diagnostics', { clear = true })
+
+vim.api.nvim_create_autocmd('DiagnosticChanged', {
+    group = 'diagnostics',
+    callback = function()
+        vim.diagnostic.setloclist({ open = false })
+    end,
+})
