@@ -46,12 +46,12 @@ require("lazy").setup({
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v4.x",
 		lazy = true,
-		config = false,
-		init = function()
-			-- Disable automatic setup, we are doing it manually
-			vim.g.lsp_zero_extend_cmp = 0
-			vim.g.lsp_zero_extend_lspconfig = 0
-		end,
+		-- config = false,
+		-- init = function()
+		-- 	-- Disable automatic setup, we are doing it manually
+		-- 	-- vim.g.lsp_zero_extend_cmp = 0
+		-- 	-- vim.g.lsp_zero_extend_lspconfig = 0
+		-- end,
 	},
 	{
 		"williamboman/mason.nvim",
@@ -60,37 +60,40 @@ require("lazy").setup({
 	},
 
 	-- Autocompletion
-	{
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
-		dependencies = {
-			{ "L3MON4D3/LuaSnip" },
-			{ "hrsh7th/cmp-buffer" }, -- Required
-			{ "hrsh7th/cmp-path" }, -- Required
-		},
-		config = function()
-			-- Here is where you configure the autocompletion settings.
-			local lsp_zero = require("lsp-zero")
-			lsp_zero.extend_cmp()
+    {
+        'saghen/blink.cmp',
+        lazy = false, -- lazy loading handled internally
+        -- optional: provides snippets for the snippet source
+        dependencies = 'rafamadriz/friendly-snippets',
 
-			-- And you can configure cmp even more, if you want to.
-			local cmp = require("cmp")
+        -- use a release tag to download pre-built binaries
+        version = 'v0.*',
+        -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+        -- build = 'cargo build --release',
 
-			cmp.setup({
-				formatting = lsp_zero.cmp_format(),
-				mapping = cmp.mapping.preset.insert({
-					["<C-u>"] = cmp.mapping.scroll_docs(-4),
-					["<C-d>"] = cmp.mapping.scroll_docs(4),
-					["<CR>"] = cmp.mapping.confirm({ select = false }),
-				}),
-				sources = {
-					{ name = "path" },
-					{ name = "buffer" },
-					{ name = "nvim_lsp" },
-				},
-			})
-		end,
-	},
+        opts = {
+            keymap = {
+                accept = '<CR>',
+                select_prev = { '<Up>', '<C-p>' },
+                select_next = { '<Down>', '<C-n>' },
+            },
+            highlight = {
+                -- sets the fallback highlight groups to nvim-cmp's highlight groups
+                -- useful for when your theme doesn't support blink.cmp
+                -- will be removed in a future release, assuming themes add support
+                use_nvim_cmp_as_default = false,
+            },
+            -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+            -- adjusts spacing to ensure icons are aligned
+            nerd_font_variant = 'normal',
+
+            -- experimental auto-brackets support
+            accept = { auto_brackets = { enabled = true } },
+
+            -- experimental signature help support
+            trigger = { signature_help = { enabled = true } },
+        }
+    },
 
 	-- LSP
 	{
@@ -98,7 +101,6 @@ require("lazy").setup({
 		cmd = { "LspInfo", "LspInstall", "LspStart" },
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "williamboman/mason-lspconfig.nvim" },
 		},
 		config = function()
@@ -118,18 +120,8 @@ require("lazy").setup({
 				},
 			})
 
-			--- if you want to know more about lsp-zero and mason.nvim
-			--- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
-			lsp_zero.on_attach(function(client, bufnr)
-				-- disable lsp syntax highlighting
-				client.server_capabilities.semanticTokensProvider = nil
-				-- see :help lsp-zero-keybindings
-				-- to learn the available actions
-				lsp_zero.default_keymaps({ buffer = bufnr })
-			end)
-
 			require("mason-lspconfig").setup({
-				ensure_installed = {"gopls", "tsserver", "terraformls", "lua_ls"},
+				ensure_installed = {"gopls", "ts_ls", "terraformls", "lua_ls"},
 				handlers = {
 					lsp_zero.default_setup,
 					lua_ls = function()
@@ -150,15 +142,6 @@ require("lazy").setup({
 			})
         end,
 	},
-    {
-        "folke/trouble.nvim",
-        cmd = "Trouble",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {},
-        -- opts = {
-        --     mode = "document_diagnostics",
-        -- },
-    },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
@@ -238,26 +221,6 @@ require("lazy").setup({
             vim.keymap.del({ "x", "o" }, "X")
         end,
     },
-    -- {
-    --     "folke/flash.nvim",
-    --     event = "VeryLazy",
-    --     ---@type Flash.Config
-    --     opts = {
-    --         modes = {
-    --             search = {
-    --                 enabled = true
-    --             }
-    --         }
-    --     },
-    --     -- stylua: ignore
-    --     keys = {
-    --         { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-    --         { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-    --         { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-    --         { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-    --         { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    --     },
-    -- }
 })
 
 ----------------------------------------
@@ -337,6 +300,10 @@ vim.api.nvim_create_autocmd('DiagnosticChanged', {
     end,
 })
 
+for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+    vim.api.nvim_set_hl(0, group, {})
+end
+
 ----------------------------------------
 -- functions
 ----------------------------------------
@@ -384,3 +351,4 @@ vim.api.nvim_create_autocmd('DiagnosticChanged', {
         vim.diagnostic.setloclist({ open = false })
     end,
 })
+
