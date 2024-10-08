@@ -16,7 +16,7 @@ end
 config.color_scheme = "Default Dark (base16)"
 
 config.use_fancy_tab_bar = false
-config.font_size = 12.5
+config.font_size = 11.5
 -- config.font = 'Monaspace Argon'
 config.hide_tab_bar_if_only_one_tab = true
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }

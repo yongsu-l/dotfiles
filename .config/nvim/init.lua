@@ -28,7 +28,7 @@ require("lazy").setup({
 		-- optional for icon support
 		dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function ()
-            require ("fzf-lua").setup({ 'default-title', defaults = { formatter = 'path.filename_first' }})
+            require ("fzf-lua").setup({ 'default', defaults = { formatter = 'path.filename_first' }})
         end
 	},
 	{
@@ -44,7 +44,7 @@ require("lazy").setup({
 	},
 	{
 		"VonHeikemen/lsp-zero.nvim",
-		branch = "v3.x",
+		branch = "v4.x",
 		lazy = true,
 		config = false,
 		init = function()
