@@ -27,9 +27,9 @@ require("lazy").setup({
 		"ibhagwan/fzf-lua",
 		-- optional for icon support
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function ()
-            require ("fzf-lua").setup({ 'default', defaults = { formatter = 'path.filename_first' }})
-        end
+		config = function()
+			require("fzf-lua").setup({ "fzf-tmux", defaults = { formatter = "path.filename_first" } })
+		end,
 	},
 	{
 		{
@@ -60,40 +60,40 @@ require("lazy").setup({
 	},
 
 	-- Autocompletion
-    {
-        'saghen/blink.cmp',
-        lazy = false, -- lazy loading handled internally
-        -- optional: provides snippets for the snippet source
-        dependencies = 'rafamadriz/friendly-snippets',
+	{
+		"saghen/blink.cmp",
+		lazy = false, -- lazy loading handled internally
+		-- optional: provides snippets for the snippet source
+		dependencies = "rafamadriz/friendly-snippets",
 
-        -- use a release tag to download pre-built binaries
-        version = 'v0.*',
-        -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-        -- build = 'cargo build --release',
+		-- use a release tag to download pre-built binaries
+		version = "v0.*",
+		-- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+		-- build = 'cargo build --release',
 
-        opts = {
-            keymap = {
-                accept = '<CR>',
-                select_prev = { '<Up>', '<C-p>' },
-                select_next = { '<Down>', '<C-n>' },
-            },
-            highlight = {
-                -- sets the fallback highlight groups to nvim-cmp's highlight groups
-                -- useful for when your theme doesn't support blink.cmp
-                -- will be removed in a future release, assuming themes add support
-                use_nvim_cmp_as_default = false,
-            },
-            -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-            -- adjusts spacing to ensure icons are aligned
-            nerd_font_variant = 'normal',
+		opts = {
+			keymap = {
+				accept = "<CR>",
+				select_prev = { "<Up>", "<C-p>" },
+				select_next = { "<Down>", "<C-n>" },
+			},
+			-- highlight = {
+			--     -- sets the fallback highlight groups to nvim-cmp's highlight groups
+			--     -- useful for when your theme doesn't support blink.cmp
+			--     -- will be removed in a future release, assuming themes add support
+			--     use_nvim_cmp_as_default = false,
+			-- },
+			-- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+			-- adjusts spacing to ensure icons are aligned
+			nerd_font_variant = "normal",
 
-            -- experimental auto-brackets support
-            accept = { auto_brackets = { enabled = true } },
+			-- experimental auto-brackets support
+			accept = { auto_brackets = { enabled = true } },
 
-            -- experimental signature help support
-            trigger = { signature_help = { enabled = true } },
-        }
-    },
+			-- experimental signature help support
+			trigger = { signature_help = { enabled = true } },
+		},
+	},
 
 	-- LSP
 	{
@@ -109,19 +109,20 @@ require("lazy").setup({
 			local lsp_zero = require("lsp-zero")
 			lsp_zero.extend_lspconfig()
 
-			lsp_zero.format_on_save({
-				format_opts = {
-					async = true,
-					timeout_ms = 10000,
-				},
-				servers = {
-					["gopls"] = { "go" },
-					["terraformls"] = { "terraform" },
-				},
-			})
+			-- lsp_zero.format_on_save({
+			-- 	format_opts = {
+			-- 		async = true,
+			-- 		timeout_ms = 10000,
+			-- 	},
+			-- 	servers = {
+			-- 		["gopls"] = { "go" },
+			-- 		["prettier"] = { "javascript", "typescript" },
+			-- 		["terraformls"] = { "terraform" },
+			-- 	},
+			-- })
 
 			require("mason-lspconfig").setup({
-				ensure_installed = {"gopls", "ts_ls", "terraformls", "lua_ls"},
+				ensure_installed = { "gopls", "ts_ls", "terraformls", "lua_ls" },
 				handlers = {
 					lsp_zero.default_setup,
 					lua_ls = function()
@@ -129,18 +130,18 @@ require("lazy").setup({
 						local lua_opts = lsp_zero.nvim_lua_ls()
 						require("lspconfig").lua_ls.setup(lua_opts)
 					end,
-                    gopls = function()
-                        require("lspconfig").gopls.setup({
-                            settings = {
-                                gopls = {
-                                    ["build.buildFlags"] = {"-mod=readonly"},
-                                }
-                            }
-                        })
-                    end,
+					gopls = function()
+						require("lspconfig").gopls.setup({
+							settings = {
+								gopls = {
+									["build.buildFlags"] = { "-mod=readonly" },
+								},
+							},
+						})
+					end,
 				},
 			})
-        end,
+		end,
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -157,10 +158,28 @@ require("lazy").setup({
 				enable = true,
 				enable_autocmd = false,
 			},
-            ensure_installed = { "go", "lua", "vim", "vimdoc", "typescript", "terraform", "ruby", "rust" }
+			ensure_installed = { "go", "lua", "vim", "vimdoc", "typescript", "terraform", "ruby", "rust" },
 		},
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
+		end,
+	},
+	{
+		"stevearc/conform.nvim",
+		opts = {},
+		config = function()
+			require("conform").setup({
+				formatters_by_ft = {
+					lua = { "stylua" },
+					javascript = { "prettier" },
+					typescript = { "prettier" },
+				},
+				format_after_save = {
+					-- These options will be passed to conform.format()
+					timeout_ms = 500,
+					lsp_format = "fallback",
+				},
+			})
 		end,
 	},
 	{
@@ -187,23 +206,22 @@ require("lazy").setup({
 			options = { try_as_border = true },
 		},
 	},
-    {
-        "olexsmir/gopher.nvim",
-        ft = "go",
-        -- branch = "develop", -- if you want develop branch
-        -- keep in mind, it might break everything
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-            "mfussenegger/nvim-dap", -- (optional) only if you use `gopher.dap`
-        },
-        -- (optional) will update plugin's deps on every update
-        build = function()
-            vim.cmd.GoInstallDeps()
-        end,
-        ---@type gopher.Config
-        opts = {},
-    },
+	{
+		"olexsmir/gopher.nvim",
+		ft = "go",
+		-- branch = "develop", -- if you want develop branch
+		-- keep in mind, it might break everything
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"mfussenegger/nvim-dap", -- (optional) only if you use `gopher.dap`
+		},
+		-- (optional) will update plugin's deps on every update
+		build = function()
+			vim.cmd.GoInstallDeps()
+		end,
+		opts = {},
+	},
 })
 
 ----------------------------------------
@@ -270,21 +288,21 @@ keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 -- LSP
 ----------------------------------------
 vim.diagnostic.config({
-    virtual_text = false -- turn off inline diagnostics
+	virtual_text = false, -- turn off inline diagnostics
 })
 
-vim.api.nvim_create_augroup('diagnostics', { clear = true })
+vim.api.nvim_create_augroup("diagnostics", { clear = true })
 
 -- automatically populate loclisfunctionst
-vim.api.nvim_create_autocmd('DiagnosticChanged', {
-    group = 'diagnostics',
-    callback = function()
-        vim.diagnostic.setloclist({ open = false })
-    end,
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
+	group = "diagnostics",
+	callback = function()
+		vim.diagnostic.setloclist({ open = false })
+	end,
 })
 
 for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
-    vim.api.nvim_set_hl(0, group, {})
+	vim.api.nvim_set_hl(0, group, {})
 end
 
 ----------------------------------------
@@ -309,9 +327,9 @@ end, { nargs = 1 })
 ----------------------------------------
 -- statuslines
 ----------------------------------------
-local fn, cmd = vim.fn, vim.cmd
+local fn = vim.fn
 
-function my_statusline()
+local function my_statusline()
 	local branch = fn.FugitiveHead()
 
 	if branch and #branch > 0 then
@@ -321,17 +339,16 @@ function my_statusline()
 	return " %f%m%=%l:%c" .. branch
 end
 
-cmd([[ set statusline=%!luaeval('my_statusline()') ]])
+vim.o.statusline = my_statusline()
 
 -- Resize window when we resize the terminal / tmux
-vim.api.nvim_command('autocmd VimResized * wincmd =')
+vim.api.nvim_command("autocmd VimResized * wincmd =")
 
-vim.api.nvim_create_augroup('diagnostics', { clear = true })
+vim.api.nvim_create_augroup("diagnostics", { clear = true })
 
-vim.api.nvim_create_autocmd('DiagnosticChanged', {
-    group = 'diagnostics',
-    callback = function()
-        vim.diagnostic.setloclist({ open = false })
-    end,
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
+	group = "diagnostics",
+	callback = function()
+		vim.diagnostic.setloclist({ open = false })
+	end,
 })
-
