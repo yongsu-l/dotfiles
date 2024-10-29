@@ -329,7 +329,7 @@ end, { nargs = 1 })
 ----------------------------------------
 local fn = vim.fn
 
-local function my_statusline()
+function my_statusline()
 	local branch = fn.FugitiveHead()
 
 	if branch and #branch > 0 then
@@ -339,7 +339,7 @@ local function my_statusline()
 	return " %f%m%=%l:%c" .. branch
 end
 
-vim.o.statusline = my_statusline()
+vim.opt.statusline = "%!v:lua.my_statusline()"
 
 -- Resize window when we resize the terminal / tmux
 vim.api.nvim_command("autocmd VimResized * wincmd =")
