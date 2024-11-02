@@ -28,7 +28,17 @@ require("lazy").setup({
 		-- optional for icon support
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			require("fzf-lua").setup({ "default", defaults = { formatter = "path.filename_first", git_icons = false } })
+			require("fzf-lua").setup({
+				"default",
+				defaults = { formatter = "path.filename_first", git_icons = false },
+				git = {
+					branches = {
+						cmd = "git branch --color",
+					},
+				},
+			})
+
+			vim.api.nvim_create_user_command("GSwitch", "FzfLua git_branches", { nargs = 0 })
 		end,
 	},
 	{
@@ -46,12 +56,6 @@ require("lazy").setup({
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v4.x",
 		lazy = true,
-		-- config = false,
-		-- init = function()
-		-- 	-- Disable automatic setup, we are doing it manually
-		-- 	-- vim.g.lsp_zero_extend_cmp = 0
-		-- 	-- vim.g.lsp_zero_extend_lspconfig = 0
-		-- end,
 	},
 	{
 		"williamboman/mason.nvim",
@@ -63,36 +67,33 @@ require("lazy").setup({
 	{
 		"saghen/blink.cmp",
 		lazy = false, -- lazy loading handled internally
-		-- optional: provides snippets for the snippet source
 		dependencies = "rafamadriz/friendly-snippets",
-
-		-- use a release tag to download pre-built binaries
 		version = "v0.*",
-		-- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-		-- build = 'cargo build --release',
-
 		opts = {
 			keymap = {
-				accept = "<CR>",
-				select_prev = { "<Up>", "<C-p>" },
-				select_next = { "<Down>", "<C-n>" },
+				["<CR>"] = { "accept", "select_and_accept", "fallback" },
+				["<C-p>"] = { "select_prev", "fallback" },
+				["<C-n>"] = { "select_next", "fallback" },
+				["<C-b>"] = { "scroll_documentation_up", "fallback" },
+				["<C-f>"] = { "scroll_documentation_down", "fallback" },
+				["<Tab>"] = { "snippet_forward", "fallback" },
+				["<S-Tab>"] = { "snippet_backward", "fallback" },
 			},
-			-- highlight = {
-			--     -- sets the fallback highlight groups to nvim-cmp's highlight groups
-			--     -- useful for when your theme doesn't support blink.cmp
-			--     -- will be removed in a future release, assuming themes add support
-			--     use_nvim_cmp_as_default = false,
-			-- },
-			-- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-			-- adjusts spacing to ensure icons are aligned
 			nerd_font_variant = "normal",
 
 			-- experimental auto-brackets support
 			accept = { auto_brackets = { enabled = true } },
-
 			-- experimental signature help support
 			trigger = { signature_help = { enabled = true } },
 		},
+	},
+
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = true,
+		-- use opts = {} for passing setup options
+		-- this is equivalent to setup({}) function
 	},
 
 	-- LSP
@@ -190,7 +191,6 @@ require("lazy").setup({
 	},
 	{
 		"j-hui/fidget.nvim",
-		-- tag = "legacy",
 		config = function(_, opts)
 			require("fidget").setup(opts)
 		end,
