@@ -51,6 +51,7 @@ require("lazy").setup({
 		},
 		{ "tpope/vim-rhubarb" },
 		{ "tpope/vim-unimpaired" },
+		{ "tpope/vim-sleuth" },
 	},
 	{
 		"VonHeikemen/lsp-zero.nvim",
@@ -71,13 +72,7 @@ require("lazy").setup({
 		version = "v0.*",
 		opts = {
 			keymap = {
-				["<CR>"] = { "accept", "select_and_accept", "fallback" },
-				["<C-p>"] = { "select_prev", "fallback" },
-				["<C-n>"] = { "select_next", "fallback" },
-				["<C-b>"] = { "scroll_documentation_up", "fallback" },
-				["<C-f>"] = { "scroll_documentation_down", "fallback" },
-				["<Tab>"] = { "snippet_forward", "fallback" },
-				["<S-Tab>"] = { "snippet_backward", "fallback" },
+				preset = "enter",
 			},
 			nerd_font_variant = "normal",
 
@@ -92,8 +87,6 @@ require("lazy").setup({
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = true,
-		-- use opts = {} for passing setup options
-		-- this is equivalent to setup({}) function
 	},
 
 	-- LSP
@@ -104,23 +97,11 @@ require("lazy").setup({
 		dependencies = {
 			{ "williamboman/mason-lspconfig.nvim" },
 		},
-		config = function()
+		config = function(_, opts)
 			vim.lsp.set_log_level("off")
 			-- This is where all the LSP shenanigans will live
 			local lsp_zero = require("lsp-zero")
 			lsp_zero.extend_lspconfig()
-
-			-- lsp_zero.format_on_save({
-			-- 	format_opts = {
-			-- 		async = true,
-			-- 		timeout_ms = 10000,
-			-- 	},
-			-- 	servers = {
-			-- 		["gopls"] = { "go" },
-			-- 		["prettier"] = { "javascript", "typescript" },
-			-- 		["terraformls"] = { "terraform" },
-			-- 	},
-			-- })
 
 			require("mason-lspconfig").setup({
 				ensure_installed = { "gopls", "ts_ls", "terraformls", "lua_ls" },
@@ -142,6 +123,12 @@ require("lazy").setup({
 					end,
 				},
 			})
+
+			local lspconfig = require("lspconfig")
+			for server, config in pairs(opts.servers or {}) do
+				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+				lspconfig[server].setup(config)
+			end
 		end,
 	},
 	{
@@ -153,7 +140,7 @@ require("lazy").setup({
 				enable = true,
 			},
 			indent = {
-				enable = false,
+				enable = true,
 			},
 			context_commentstring = {
 				enable = true,
@@ -230,17 +217,16 @@ require("lazy").setup({
 
 vim.cmd.colorscheme("base16-default-dark") -- colorscheme
 vim.opt.number = true -- Print line number
--- vim.opt.relativenumber = true -- Relative line numbers
 vim.opt.termguicolors = true -- True color support
 vim.opt.splitright = true -- Put new windows right of current
 vim.opt.splitbelow = true -- Put new windows below of current
 vim.opt.grepprg = "rg --vimgrep"
 vim.opt.ignorecase = true -- Ignore case
 
+vim.opt.smartindent = true
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
--- vim.opt.smarttab = false
 vim.opt.tabstop = 4
 
 vim.opt.updatetime = 100
