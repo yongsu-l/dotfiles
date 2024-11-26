@@ -73,10 +73,6 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
 	end,
 })
 
-for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
-	vim.api.nvim_set_hl(0, group, {})
-end
-
 ----------------------------------------
 -- functions
 ----------------------------------------
@@ -167,6 +163,11 @@ require("lazy").setup({
 						cmd = "git branch --color",
 					},
 				},
+				keymap = {
+					fzf = {
+						["ctrl-q"] = "select-all+accept",
+					}
+				}
 			})
 
 			vim.api.nvim_create_user_command("GSwitch", "FzfLua git_branches", { nargs = 0 })
@@ -259,6 +260,10 @@ require("lazy").setup({
 			for server, config in pairs(opts.servers or {}) do
 				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
 				lspconfig[server].setup(config)
+			end
+
+			for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+				vim.api.nvim_set_hl(0, group, {})
 			end
 		end,
 	},
