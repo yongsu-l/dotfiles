@@ -134,6 +134,13 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	-- {
+	-- 	"marcussimonsen/let-it-snow.nvim",
+	-- 	cmd = "LetItSnow", -- Wait with loading until command is run
+	-- 	opts = {
+	-- 		delay = 1,
+	-- 	},
+	-- },
 	{
 		"RRethy/nvim-base16",
 		config = function()
@@ -166,8 +173,8 @@ require("lazy").setup({
 				keymap = {
 					fzf = {
 						["ctrl-q"] = "select-all+accept",
-					}
-				}
+					},
+				},
 			})
 
 			vim.api.nvim_create_user_command("GSwitch", "FzfLua git_branches", { nargs = 0 })
@@ -197,23 +204,26 @@ require("lazy").setup({
 	},
 
 	-- Autocompletion
-	{
-		"saghen/blink.cmp",
-		lazy = false, -- lazy loading handled internally
-		dependencies = "rafamadriz/friendly-snippets",
-		version = "v0.*",
-		opts = {
-			keymap = {
-				preset = "enter",
-			},
-			nerd_font_variant = "normal",
-
-			-- experimental auto-brackets support
-			accept = { auto_brackets = { enabled = true } },
-			-- experimental signature help support
-			trigger = { signature_help = { enabled = true } },
-		},
-	},
+	-- {
+	-- 	"saghen/blink.cmp",
+	-- 	lazy = false, -- lazy loading handled internally
+	-- 	dependencies = "rafamadriz/friendly-snippets",
+	-- 	version = "v0.*",
+	-- 	opts = {
+	-- 		keymap = {
+	-- 			preset = "enter",
+	-- 		},
+	-- 		nerd_font_variant = "normal",
+	--
+	-- 		-- experimental auto-brackets support
+	-- 		accept = { auto_brackets = { enabled = true } },
+	-- 		-- experimental signature help support
+	-- 		trigger = { signature_help = { enabled = true } },
+	-- 	},
+	-- },
+	-- At the time of writing, blink.cmp causes neovim to crash: https://github.com/Saghen/blink.cmp/issues/68
+	{ "hrsh7th/cmp-nvim-lsp" },
+	{ "hrsh7th/nvim-cmp" },
 
 	{
 		"windwp/nvim-autopairs",
@@ -261,6 +271,18 @@ require("lazy").setup({
 				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
 				lspconfig[server].setup(config)
 			end
+
+			local cmp = require("cmp")
+
+			cmp.setup({
+				sources = {
+					{ name = "nvim_lsp" },
+					{ name = "buffer" },
+				},
+				mapping = cmp.mapping.preset.insert({
+					["<CR>"] = cmp.mapping.confirm({ select = false }),
+				}),
+			})
 
 			for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
 				vim.api.nvim_set_hl(0, group, {})
