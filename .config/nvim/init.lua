@@ -246,7 +246,7 @@ require("lazy").setup({
 			lsp_zero.extend_lspconfig()
 
 			require("mason-lspconfig").setup({
-				ensure_installed = { "gopls", "ts_ls", "terraformls", "lua_ls" },
+				ensure_installed = { "gopls", "ts_ls", "terraformls" },
 				handlers = {
 					lsp_zero.default_setup,
 					lua_ls = function()
