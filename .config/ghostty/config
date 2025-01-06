@@ -1,0 +1,23 @@
+# Font
+font-family =
+font-size = 12
+
+# Theme
+theme = "base16-default-dark"
+window-decoration = true
+
+# Keybindings
+keybind = ctrl+a>r=reload_config
+
+# Keybindings Split
+keybind = ctrl+a>\=new_split:right
+keybind = ctrl+a>-=new_split:down
+
+keybind = ctrl+a>j=goto_split:bottom
+keybind = ctrl+a>k=goto_split:top
+keybind = ctrl+a>h=goto_split:left
+keybind = ctrl+a>l=goto_split:right
+
+keybind = ctrl+a>z=toggle_split_zoom
+
+keybind = ctrl+a>e=equalize_splits
