@@ -3,7 +3,7 @@
 background = 181818
 foreground = d8d8d8
 
-selection-background = 383838
+selection-background = d9d8d8
 selection-foreground = 181818
 
 palette = 0=#181818
