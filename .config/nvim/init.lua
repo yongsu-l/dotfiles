@@ -134,13 +134,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	-- {
-	-- 	"marcussimonsen/let-it-snow.nvim",
-	-- 	cmd = "LetItSnow", -- Wait with loading until command is run
-	-- 	opts = {
-	-- 		delay = 1,
-	-- 	},
-	-- },
 	{
 		"RRethy/nvim-base16",
 		config = function()
@@ -204,26 +197,22 @@ require("lazy").setup({
 	},
 
 	-- Autocompletion
-	-- {
-	-- 	"saghen/blink.cmp",
-	-- 	lazy = false, -- lazy loading handled internally
-	-- 	dependencies = "rafamadriz/friendly-snippets",
-	-- 	version = "v0.*",
-	-- 	opts = {
-	-- 		keymap = {
-	-- 			preset = "enter",
-	-- 		},
-	-- 		nerd_font_variant = "normal",
-	--
-	-- 		-- experimental auto-brackets support
-	-- 		accept = { auto_brackets = { enabled = true } },
-	-- 		-- experimental signature help support
-	-- 		trigger = { signature_help = { enabled = true } },
-	-- 	},
-	-- },
-	-- At the time of writing, blink.cmp causes neovim to crash: https://github.com/Saghen/blink.cmp/issues/68
-	{ "hrsh7th/cmp-nvim-lsp" },
-	{ "hrsh7th/nvim-cmp" },
+	{
+		"saghen/blink.cmp",
+		-- optional: provides snippets for the snippet source
+		dependencies = "rafamadriz/friendly-snippets",
+		version = "*",
+		opts = {
+			-- 'default' for mappings similar to built-in completion
+			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
+			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
+			-- See the full "keymap" documentation for information on defining your own keymap.
+			keymap = { preset = "enter", cmdline = { preset = "super-tab" } },
+			signature = {
+				enabled = true,
+			},
+		},
+	},
 
 	{
 		"windwp/nvim-autopairs",
@@ -267,23 +256,11 @@ require("lazy").setup({
 			})
 
 			local lspconfig = require("lspconfig")
-			for server, config in pairs(opts.servers or {}) do
-				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-				lspconfig[server].setup(config)
-			end
+			local blink = require("blink.cmp")
+			local defaults = lspconfig.util.default_config
+			defaults.capabilities = vim.tbl_deep_extend("force", defaults.capabilities, blink.get_lsp_capabilities())
 
-			local cmp = require("cmp")
-
-			cmp.setup({
-				sources = {
-					{ name = "nvim_lsp" },
-					{ name = "buffer" },
-				},
-				mapping = cmp.mapping.preset.insert({
-					["<CR>"] = cmp.mapping.confirm({ select = false }),
-				}),
-			})
-
+			-- disable lsp highlighting and use treesitter
 			for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
 				vim.api.nvim_set_hl(0, group, {})
 			end
