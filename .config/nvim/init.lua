@@ -170,7 +170,7 @@ require("lazy").setup({
 				},
 			})
 
-			vim.api.nvim_create_user_command("GSwitch", "FzfLua git_branches", { nargs = 0 })
+			vim.api.nvim_create_user_command("Gswitch", "FzfLua git_branches", { nargs = 0 })
 		end,
 	},
 	{
