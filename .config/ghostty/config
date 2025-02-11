@@ -6,21 +6,38 @@ font-size = 12
 theme = "base16-default-dark"
 window-decoration = true
 
-# Keybindings
-keybind = ctrl+a>r=reload_config
-
-# Keybindings Split
-keybind = ctrl+a>\=new_split:right
-keybind = ctrl+a>-=new_split:down
-
-keybind = ctrl+a>j=goto_split:bottom
-keybind = ctrl+a>k=goto_split:top
-keybind = ctrl+a>h=goto_split:left
-keybind = ctrl+a>l=goto_split:right
-
-keybind = ctrl+a>z=toggle_split_zoom
-
-keybind = ctrl+a>e=equalize_splits
+# TODO: re-enable once the following are implemented
+# - https://github.com/ghostty-org/ghostty/issues/189
+# - https://github.com/ghostty-org/ghostty/discussions/3488
+# # Keybindings
+# keybind = ctrl+a>r=reload_config
+#
+# # Keybindings Split
+# keybind = ctrl+a>\=new_split:right
+# keybind = ctrl+a>-=new_split:down
+#
+# keybind = ctrl+a>j=goto_split:bottom
+# keybind = ctrl+a>k=goto_split:top
+# keybind = ctrl+a>h=goto_split:left
+# keybind = ctrl+a>l=goto_split:right
+#
+# # Mirror of keybindings split but holding ctrl
+# keybind = ctrl+a>ctrl+\=new_split:right
+# keybind = ctrl+a>ctrl+-=new_split:down
+#
+# keybind = ctrl+a>ctrl+j=goto_split:bottom
+# keybind = ctrl+a>ctrl+k=goto_split:top
+# keybind = ctrl+a>ctrl+h=goto_split:left
+# keybind = ctrl+a>ctrl+l=goto_split:right
+#
+# keybind = ctrl+a>z=toggle_split_zoom
+# keybind = ctrl+a>e=equalize_splits
 
 # Make ctrl+[ just work https://github.com/ghostty-org/ghostty/issues/2976#issuecomment-2544110951
 keybind = ctrl+left_bracket=text:\x1b
+
+# Search entire scrollback history in default text editor
+keybind = cmd+f=write_scrollback_file:open
+
+# RECOMMENDED: Set this to something big so you can capture all of your scrollback
+scrollback-limit = 20000000

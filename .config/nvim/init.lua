@@ -184,6 +184,7 @@ require("lazy").setup({
 		{ "tpope/vim-rhubarb" },
 		{ "tpope/vim-unimpaired" },
 		{ "tpope/vim-sleuth" },
+		{ "tpope/vim-endwise" },
 	},
 	{
 		"VonHeikemen/lsp-zero.nvim",
@@ -201,7 +202,7 @@ require("lazy").setup({
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
 		dependencies = "rafamadriz/friendly-snippets",
-		version = "*",
+		version = "0.10.*", -- revert to 0.10.* since 0.11.* removes the previous characters in cmdline completion
 		opts = {
 			-- 'default' for mappings similar to built-in completion
 			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
@@ -235,7 +236,7 @@ require("lazy").setup({
 			lsp_zero.extend_lspconfig()
 
 			require("mason-lspconfig").setup({
-				ensure_installed = { "gopls", "ts_ls", "terraformls" },
+				ensure_installed = { "gopls", "ts_ls", "terraformls", "ruby_lsp" },
 				handlers = {
 					lsp_zero.default_setup,
 					lua_ls = function()
@@ -252,6 +253,11 @@ require("lazy").setup({
 							},
 						})
 					end,
+					-- ruby_lsp = function()
+					-- 	require("lspconfig").ruby_lsp.setup({
+					-- 		cmd_env = { BUNDLE_GEMFILE = "./Gemfile" },
+					-- 	})
+					-- end,
 				},
 			})
 
@@ -269,13 +275,14 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
+		commit = "7e3942ceca9e0c28760f77ac33bc16399146d879",
 		event = { "BufReadPost", "BufNewFile" },
 		opts = {
 			highlight = {
 				enable = true,
 			},
 			indent = {
-				enable = true,
+				enable = false,
 			},
 			context_commentstring = {
 				enable = true,
@@ -296,6 +303,7 @@ require("lazy").setup({
 					lua = { "stylua" },
 					javascript = { "prettier" },
 					typescript = { "prettier" },
+					ruby = { "prettier" },
 				},
 				format_after_save = {
 					-- These options will be passed to conform.format()
@@ -319,13 +327,14 @@ require("lazy").setup({
 	},
 	{
 		"echasnovski/mini.indentscope",
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			vim.cmd("au TermOpen * lua vim.b.minicursorword_disable = true")
-		end,
-		opts = {
-			symbol = "│",
-			options = { try_as_border = true },
-		},
+		version = "*",
+		-- event = { "BufReadPre", "BufNewFile" },
+		-- config = function()
+		-- 	vim.cmd("au TermOpen * lua vim.b.minicursorword_disable = true")
+		-- end,
+		-- opts = {
+		-- 	symbol = "│",
+		-- 	options = { try_as_border = true },
+		-- },
 	},
 })
