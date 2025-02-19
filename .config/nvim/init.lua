@@ -184,7 +184,7 @@ require("lazy").setup({
 		{ "tpope/vim-rhubarb" },
 		{ "tpope/vim-unimpaired" },
 		{ "tpope/vim-sleuth" },
-		{ "tpope/vim-endwise" },
+		-- { "tpope/vim-endwise" },
 	},
 	{
 		"VonHeikemen/lsp-zero.nvim",
@@ -202,16 +202,17 @@ require("lazy").setup({
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
 		dependencies = "rafamadriz/friendly-snippets",
-		version = "0.10.*", -- revert to 0.10.* since 0.11.* removes the previous characters in cmdline completion
+		version = "*", -- revert to 0.10.* since 0.11.* removes the previous characters in cmdline completion
 		opts = {
 			-- 'default' for mappings similar to built-in completion
 			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
 			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
 			-- See the full "keymap" documentation for information on defining your own keymap.
-			keymap = { preset = "enter", cmdline = { preset = "super-tab" } },
-			signature = {
-				enabled = true,
-			},
+			keymap = { preset = "enter" },
+			cmdline = { keymap = { preset = "super-tab" } },
+			-- signature = {
+			-- 	enabled = true,
+			-- },
 		},
 	},
 
@@ -275,14 +276,14 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		commit = "7e3942ceca9e0c28760f77ac33bc16399146d879",
+		-- commit = "7e3942ceca9e0c28760f77ac33bc16399146d879",
 		event = { "BufReadPost", "BufNewFile" },
 		opts = {
 			highlight = {
 				enable = true,
 			},
 			indent = {
-				enable = false,
+				-- enable = false,
 			},
 			context_commentstring = {
 				enable = true,
