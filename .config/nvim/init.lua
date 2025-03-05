@@ -41,7 +41,7 @@ keymap.set("n", "<leader>,", "<cmd>FzfLua resume<CR>")
 keymap.set("n", "<leader>v", "<cmd>FzfLua grep_cword<CR>")
 keymap.set("v", "<leader>v", "<cmd>FzfLua grep_visual<CR>")
 
-keymap.set("n", "gd", '<cmd>lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<CR>')
+keymap.set("n", "gd", '<cmd>lua require("fzf-lua").lsp_definitions({ jump1 = true })<CR>')
 keymap.set("n", "gD", '<cmd>lua require("fzf-lua").lsp_declarations({ jump_to_single_result = true })<CR>')
 keymap.set("n", "gi", '<cmd>lua require("fzf-lua").lsp_implementations({ jump_to_single_result = true })<CR>')
 keymap.set("n", "gr", '<cmd>lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>')
@@ -86,6 +86,7 @@ vim.api.nvim_create_user_command("PR", "terminal gh pr create", { nargs = 0 })
 
 vim.api.nvim_create_user_command("GPush", "Git --no-pager push", { nargs = 0 })
 vim.api.nvim_create_user_command("GPull", "Git --no-pager pull", { nargs = 0 })
+vim.api.nvim_create_user_command("Glog", "Git log -500", { nargs = 0 })
 
 -- To make GBrowse work with oil.nvim without netrw
 vim.api.nvim_create_user_command("Browse", function(opts)
@@ -209,7 +210,7 @@ require("lazy").setup({
 			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
 			-- See the full "keymap" documentation for information on defining your own keymap.
 			keymap = { preset = "enter" },
-			cmdline = { keymap = { preset = "super-tab" } },
+			-- cmdline = { keymap = { preset = "super-tab" } },
 			-- signature = {
 			-- 	enabled = true,
 			-- },
