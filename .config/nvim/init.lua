@@ -203,17 +203,9 @@ require("lazy").setup({
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
 		dependencies = "rafamadriz/friendly-snippets",
-		version = "*", -- revert to 0.10.* since 0.11.* removes the previous characters in cmdline completion
+		version = "1.*",
 		opts = {
-			-- 'default' for mappings similar to built-in completion
-			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
-			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
-			-- See the full "keymap" documentation for information on defining your own keymap.
 			keymap = { preset = "enter" },
-			-- cmdline = { keymap = { preset = "super-tab" } },
-			-- signature = {
-			-- 	enabled = true,
-			-- },
 		},
 	},
 
@@ -238,7 +230,9 @@ require("lazy").setup({
 			lsp_zero.extend_lspconfig()
 
 			require("mason-lspconfig").setup({
-				ensure_installed = { "gopls", "ts_ls", "terraformls", "ruby_lsp" },
+				-- ensure_installed = { "gopls", "ts_ls", "terraformls", "ruby_lsp" },
+				-- terraformls is broke
+				ensure_installed = { "gopls", "ts_ls", "ruby_lsp" },
 				handlers = {
 					lsp_zero.default_setup,
 					lua_ls = function()
@@ -290,7 +284,8 @@ require("lazy").setup({
 				enable = true,
 				enable_autocmd = false,
 			},
-			ensure_installed = { "go", "lua", "vim", "vimdoc", "typescript", "terraform", "ruby", "rust" },
+			ensure_installed = { "go", "lua", "vim", "vimdoc", "typescript", "ruby", "rust" },
+			-- ensure_installed = { "go", "lua", "vim", "vimdoc", "typescript", "terraform", "ruby", "rust" },
 		},
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
