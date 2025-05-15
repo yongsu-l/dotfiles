@@ -185,7 +185,7 @@ require("lazy").setup({
 		{ "tpope/vim-rhubarb" },
 		{ "tpope/vim-unimpaired" },
 		{ "tpope/vim-sleuth" },
-		-- { "tpope/vim-endwise" },
+		{ "vim-ruby/vim-ruby" },
 	},
 	{
 		"VonHeikemen/lsp-zero.nvim",
@@ -229,32 +229,16 @@ require("lazy").setup({
 			local lsp_zero = require("lsp-zero")
 			lsp_zero.extend_lspconfig()
 
-			require("mason-lspconfig").setup({
-				-- ensure_installed = { "gopls", "ts_ls", "terraformls", "ruby_lsp" },
-				-- terraformls is broke
-				ensure_installed = { "gopls", "ts_ls", "ruby_lsp" },
-				handlers = {
-					lsp_zero.default_setup,
-					lua_ls = function()
-						-- (Optional) Configure lua language server for neovim
-						local lua_opts = lsp_zero.nvim_lua_ls()
-						require("lspconfig").lua_ls.setup(lua_opts)
-					end,
-					gopls = function()
-						require("lspconfig").gopls.setup({
-							settings = {
-								gopls = {
-									["build.buildFlags"] = { "-mod=readonly" },
-								},
-							},
-						})
-					end,
-					-- ruby_lsp = function()
-					-- 	require("lspconfig").ruby_lsp.setup({
-					-- 		cmd_env = { BUNDLE_GEMFILE = "./Gemfile" },
-					-- 	})
-					-- end,
+			vim.lsp.config("gopls", {
+				settings = {
+					gopls = {
+						["build.buildFlags"] = { "-mod=readonly" },
+					},
 				},
+			})
+
+			require("mason-lspconfig").setup({
+				ensure_installed = { "terraformls", "gopls", "ts_ls", "ruby_lsp" },
 			})
 
 			local lspconfig = require("lspconfig")
@@ -325,13 +309,5 @@ require("lazy").setup({
 	{
 		"echasnovski/mini.indentscope",
 		version = "*",
-		-- event = { "BufReadPre", "BufNewFile" },
-		-- config = function()
-		-- 	vim.cmd("au TermOpen * lua vim.b.minicursorword_disable = true")
-		-- end,
-		-- opts = {
-		-- 	symbol = "│",
-		-- 	options = { try_as_border = true },
-		-- },
 	},
 })
