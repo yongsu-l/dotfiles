@@ -43,7 +43,7 @@ keymap.set("v", "<leader>v", "<cmd>FzfLua grep_visual<CR>")
 
 keymap.set("n", "gd", '<cmd>lua require("fzf-lua").lsp_definitions({ jump1 = true })<CR>')
 keymap.set("n", "gD", '<cmd>lua require("fzf-lua").lsp_declarations({ jump_to_single_result = true })<CR>')
-keymap.set("n", "gi", '<cmd>lua require("fzf-lua").lsp_implementations({ jump_to_single_result = true })<CR>')
+keymap.set("n", "gi", '<cmd>lua require("fzf-lua").lsp_implementations({ jump1 = true })<CR>')
 keymap.set("n", "gr", '<cmd>lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>')
 keymap.set("n", "<leader>ca", '<cmd>lua require("fzf-lua").lsp_code_actions({ sync = true })<cr>')
 keymap.set("n", "<C-k>", [[<Cmd>lua require"fzf-lua".builtin()<CR>]], {})
@@ -59,13 +59,13 @@ keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 ----------------------------------------
 -- LSP
 ----------------------------------------
-vim.diagnostic.config({
-	virtual_text = false, -- turn off inline diagnostics
-})
+-- set lower priority for semantic_tokens in case treesitter is available
+vim.highlight.priorities.semantic_tokens = 95
 
-vim.api.nvim_create_augroup("diagnostics", { clear = true })
+vim.diagnostic.config({ virtual_text = true })
 
 -- automatically populate loclisfunctionst
+vim.api.nvim_create_augroup("diagnostics", { clear = true })
 vim.api.nvim_create_autocmd("DiagnosticChanged", {
 	group = "diagnostics",
 	callback = function()
@@ -113,14 +113,6 @@ vim.opt.statusline = "%!v:lua.my_statusline()"
 -- Resize window when we resize the terminal / tmux
 vim.api.nvim_command("autocmd VimResized * wincmd =")
 
-vim.api.nvim_create_augroup("diagnostics", { clear = true })
-
-vim.api.nvim_create_autocmd("DiagnosticChanged", {
-	group = "diagnostics",
-	callback = function()
-		vim.diagnostic.setloclist({ open = false })
-	end,
-})
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -157,18 +149,19 @@ require("lazy").setup({
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("fzf-lua").setup({
-				"default",
-				defaults = { formatter = "path.filename_first", git_icons = false },
-				git = {
-					branches = {
-						cmd = "git branch --color",
-					},
-				},
-				keymap = {
-					fzf = {
-						["ctrl-q"] = "select-all+accept",
-					},
-				},
+				"hide",
+				-- "default",
+				-- defaults = { formatter = "path.filename_first", git_icons = false },
+				-- git = {
+				-- 	branches = {
+				-- 		cmd = "git branch --color",
+				-- 	},
+				-- },
+				-- keymap = {
+				-- 	fzf = {
+				-- 		["ctrl-q"] = "select-all+accept",
+				-- 	},
+				-- },
 			})
 
 			vim.api.nvim_create_user_command("Gswitch", "FzfLua git_branches", { nargs = 0 })
@@ -187,17 +180,6 @@ require("lazy").setup({
 		{ "tpope/vim-sleuth" },
 		{ "vim-ruby/vim-ruby" },
 	},
-	{
-		"VonHeikemen/lsp-zero.nvim",
-		branch = "v4.x",
-		lazy = true,
-	},
-	{
-		"williamboman/mason.nvim",
-		lazy = false,
-		config = true,
-	},
-
 	-- Autocompletion
 	{
 		"saghen/blink.cmp",
@@ -217,18 +199,13 @@ require("lazy").setup({
 
 	-- LSP
 	{
-		"neovim/nvim-lspconfig",
-		cmd = { "LspInfo", "LspInstall", "LspStart" },
-		event = { "BufReadPre", "BufNewFile" },
+		"mason-org/mason-lspconfig.nvim",
+		opts = {},
 		dependencies = {
-			{ "williamboman/mason-lspconfig.nvim" },
+			{ "mason-org/mason.nvim", opts = {} },
+			"neovim/nvim-lspconfig",
 		},
 		config = function(_, opts)
-			vim.lsp.set_log_level("off")
-			-- This is where all the LSP shenanigans will live
-			local lsp_zero = require("lsp-zero")
-			lsp_zero.extend_lspconfig()
-
 			vim.lsp.config("gopls", {
 				settings = {
 					gopls = {
@@ -236,40 +213,33 @@ require("lazy").setup({
 					},
 				},
 			})
-
-			require("mason-lspconfig").setup({
-				ensure_installed = { "terraformls", "gopls", "ts_ls", "ruby_lsp" },
+			vim.lsp.config("ruby_lsp", {
+				settings = {
+					["rubyLsp.bundleGemfile"] = "./Gemfile",
+				},
 			})
 
-			local lspconfig = require("lspconfig")
-			local blink = require("blink.cmp")
-			local defaults = lspconfig.util.default_config
-			defaults.capabilities = vim.tbl_deep_extend("force", defaults.capabilities, blink.get_lsp_capabilities())
-
-			-- disable lsp highlighting and use treesitter
-			for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
-				vim.api.nvim_set_hl(0, group, {})
-			end
+			require("mason-lspconfig").setup({
+				ensure_installed = { "terraformls", "gopls" },
+			})
 		end,
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		-- commit = "7e3942ceca9e0c28760f77ac33bc16399146d879",
 		event = { "BufReadPost", "BufNewFile" },
+		lazy = false,
+		build = ":TSUpdate",
 		opts = {
 			highlight = {
 				enable = true,
 			},
 			indent = {
-				-- enable = false,
+				enable = true,
 			},
 			context_commentstring = {
 				enable = true,
-				enable_autocmd = false,
 			},
 			ensure_installed = { "go", "lua", "vim", "vimdoc", "typescript", "ruby", "rust" },
-			-- ensure_installed = { "go", "lua", "vim", "vimdoc", "typescript", "terraform", "ruby", "rust" },
 		},
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
