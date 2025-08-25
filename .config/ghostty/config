@@ -39,5 +39,8 @@ keybind = ctrl+left_bracket=text:\x1b
 # Search entire scrollback history in default text editor
 keybind = cmd+f=write_scrollback_file:open
 
+# claude-code: https://github.com/anthropics/claude-code/issues/1282
+keybind = shift+enter=text:\n
+
 # RECOMMENDED: Set this to something big so you can capture all of your scrollback
 scrollback-limit = 20000000

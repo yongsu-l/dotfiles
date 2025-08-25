@@ -35,7 +35,7 @@ keymap.set("v", "p", "pgvy", { desc = "Paste in visual mode without copying" })
 
 keymap.set("n", "<leader>f", "<cmd>FzfLua files<CR>")
 keymap.set("n", "<leader>b", "<cmd>FzfLua buffers<CR>")
-keymap.set("n", "<leader>/", "<cmd>FzfLua live_grep_glob<CR>")
+keymap.set("n", "<leader>/", "<cmd>FzfLua live_grep<CR>")
 keymap.set("n", "<leader>,", "<cmd>FzfLua resume<CR>")
 
 keymap.set("n", "<leader>v", "<cmd>FzfLua grep_cword<CR>")
@@ -157,11 +157,12 @@ require("lazy").setup({
 				-- 		cmd = "git branch --color",
 				-- 	},
 				-- },
-				-- keymap = {
-				-- 	fzf = {
-				-- 		["ctrl-q"] = "select-all+accept",
-				-- 	},
-				-- },
+				-- send grep'd things to quickfix list
+				keymap = {
+					fzf = {
+						["ctrl-q"] = "select-all+accept",
+					},
+				},
 			})
 
 			vim.api.nvim_create_user_command("Gswitch", "FzfLua git_branches", { nargs = 0 })
@@ -173,6 +174,14 @@ require("lazy").setup({
 			config = function(_, _)
 				-- deprecated function that still tab completes
 				vim.api.nvim_del_user_command("Gbrowse")
+				
+				-- override cc in fugitive windows to use --no-verify
+				vim.api.nvim_create_autocmd("FileType", {
+					pattern = "fugitive",
+					callback = function()
+						vim.keymap.set("n", "cc", ":Git commit --no-verify<CR>", { buffer = true })
+					end,
+				})
 			end,
 		},
 		{ "tpope/vim-rhubarb" },
@@ -218,9 +227,15 @@ require("lazy").setup({
 					["rubyLsp.bundleGemfile"] = "./Gemfile",
 				},
 			})
+			vim.lsp.config("ts_ls", {
+				settings = {
+					["typescript.tsserver.maxTsServerMemory"] = 8192,
+					["typescript.tsserver.nodePath"] = "/usr/local/bin/node",
+				},
+			})
 
 			require("mason-lspconfig").setup({
-				ensure_installed = { "terraformls", "gopls" },
+				ensure_installed = { "gopls" },
 			})
 		end,
 	},
@@ -275,9 +290,5 @@ require("lazy").setup({
 		config = function(_, opts)
 			require("fidget").setup(opts)
 		end,
-	},
-	{
-		"echasnovski/mini.indentscope",
-		version = "*",
 	},
 })

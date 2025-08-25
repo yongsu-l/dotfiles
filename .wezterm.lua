@@ -23,8 +23,8 @@ config.font_size = 11.5
 config.hide_tab_bar_if_only_one_tab = true
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
--- config.max_fps = 120
-config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 }
+config.max_fps = 120
+config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	-- splitting
 	{
