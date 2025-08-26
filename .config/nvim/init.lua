@@ -174,12 +174,13 @@ require("lazy").setup({
 			config = function(_, _)
 				-- deprecated function that still tab completes
 				vim.api.nvim_del_user_command("Gbrowse")
-				
+
 				-- override cc in fugitive windows to use --no-verify
 				vim.api.nvim_create_autocmd("FileType", {
 					pattern = "fugitive",
 					callback = function()
 						vim.keymap.set("n", "cc", ":Git commit --no-verify<CR>", { buffer = true })
+						vim.keymap.set("n", "ce", ":Git commit --amend --no-edit --no-verify<CR>", { buffer = true })
 					end,
 				})
 			end,
