@@ -7,9 +7,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Change to that directory
 cd "$SCRIPT_DIR"
 
-# Reload zsh to apply changes
-exec zsh
-
 # Install stow based on platform
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS
@@ -20,7 +17,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     brew install stow
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Ubuntu/Debian
-    sudo apt update && sudo apt install -y stow
+    sudo apt update && sudo apt install -y stow yacc # yacc is a dependency to install tmux with mise
 else
     echo "Unsupported OS: $OSTYPE"
     exit 1
@@ -29,10 +26,15 @@ fi
 stow --adopt . && git restore . && cd -
 
 # p10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+if [ ! -d ~/powerlevel10k ]; then
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+fi
 
 # devtools
 curl https://mise.run | sh
+
+# Source mise to make it available in current shell
+eval "$($HOME/.local/bin/mise activate zsh)"
 
 mise use neovim
 mise use tmux
