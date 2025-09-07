@@ -33,7 +33,7 @@ fi
 # devtools
 curl https://mise.run | sh
 
-mise use neovim
-mise use tmux
-mise use kubectl
-mise use fzf
+mise use --global neovim
+mise use --global tmux
+mise use --global kubectl
+mise use --global fzf
