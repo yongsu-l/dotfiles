@@ -228,10 +228,14 @@ require("lazy").setup({
 					["rubyLsp.bundleGemfile"] = "./Gemfile",
 				},
 			})
-			vim.lsp.config("ts_ls", {
+			vim.lsp.config("vtsls", {
 				settings = {
-					["typescript.tsserver.maxTsServerMemory"] = 8192,
-					["typescript.tsserver.nodePath"] = "/usr/local/bin/node",
+					typescript = {
+						tsserver = {
+							maxTsServerMemory = 8192,
+							nodePath = "/usr/local/bin/node",
+						},
+					},
 				},
 			})
 
