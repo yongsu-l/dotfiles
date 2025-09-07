@@ -1,0 +1,10 @@
+[settings]
+idiomatic_version_file_enable_tools = ["ruby"]
+
+[tools]
+neovim = "latest"
+tmux = "latest"
+kubectl = "latest"
+fzf = "latest"
+
+ruby = "3.2.8"

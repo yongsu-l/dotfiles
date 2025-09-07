@@ -25,6 +25,8 @@ export PATH=/opt/homebrew/bin:$PATH
 
 export GOPATH=$HOME/go
 
+eval "$(~/.local/bin/mise activate zsh)"
+
 set -o vi
 export EDITOR=nvim
 export VISUAL=$EDITOR
@@ -84,7 +86,6 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig:/usr/local/opt
 
 eval "$(rbenv init -)"
 export RACK_ENV=development
-eval "$(~/.local/bin/mise activate zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
