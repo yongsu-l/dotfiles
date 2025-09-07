@@ -32,8 +32,4 @@ fi
 
 # devtools
 curl https://mise.run | sh
-
-mise use --global neovim
-mise use --global tmux
-mise use --global kubectl
-mise use --global fzf
+mise install
