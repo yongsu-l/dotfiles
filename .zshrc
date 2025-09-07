@@ -43,14 +43,6 @@ function assume-role() {
   export AWS_SESSION_TOKEN=$(echo $OUT | jq -r '.Credentials''.SessionToken');
 }
 
-# # eval "$(rbenv init -)"
-export RACK_ENV=development
-export AWS_CONFIG_FILE="$HOME/figma/figma/config/aws/sso_config"
-
-export MISE_TRUSTED_CONFIG_PATHS="$HOME/figma"
-export MISE_ENV=macos # loads mise.macos.toml
-eval "$(mise activate zsh)"
-
 # git
 alias gs="git status"
 alias gca="git commit --amend --no-edit"
@@ -83,14 +75,10 @@ alias vim='nvim'
 alias tf='tofu'
 alias ls='ls -F'
 alias ll='ls -llh'
-# function ff() {
-#   cd $HOME/figma/figma
-# }
 alias grep='rg'
 
-source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+source $HOME/powerlevel10k/powerlevel10k.zsh-theme
 
-eval "$(rbenv init -)"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig:/usr/local/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig:/usr/local/opt/openssl@3/lib/pkgconfig:$PKG_CONFIG_PATH"
 
