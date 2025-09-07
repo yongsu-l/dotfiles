@@ -1,17 +1,37 @@
 #!/bin/bash
 set -euo pipefail
 
-# p10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-
-# fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-
 # Get the directory of the script itself
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Change to that directory
 cd "$SCRIPT_DIR"
 
-stow --adopt . && git restore .
+# Install stow based on platform
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS
+    if ! command -v brew &> /dev/null; then
+        echo "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+    brew install stow
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # Ubuntu/Debian
+    sudo apt update && sudo apt install -y stow
+else
+    echo "Unsupported OS: $OSTYPE"
+    exit 1
+fi
+
+stow --adopt . && git restore . && cd -
+
+# p10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+
+# devtools
+curl https://mise.run | sh
+
+mise use neovim
+mise use tmux
+mise use kubectl
+mise use fzf
