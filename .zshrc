@@ -31,7 +31,6 @@ export VISUAL=$EDITOR
 
 source <(fzf --zsh)
 source <(kubectl completion zsh)
-source <(av completion zsh)
 
 unset AWS_CLI_AUTO_PROMPT
 unset AWS_PAGER
