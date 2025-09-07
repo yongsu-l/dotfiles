@@ -33,3 +33,6 @@ fi
 # devtools
 curl https://mise.run | sh
 mise install
+
+# Reload zsh to apply changes
+exec zsh
