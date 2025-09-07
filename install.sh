@@ -23,7 +23,7 @@ else
     exit 1
 fi
 
-stow --adopt . && git restore . && cd -
+stow --adopt . && git restore .
 
 # p10k
 if [ ! -d ~/powerlevel10k ]; then
