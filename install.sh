@@ -33,9 +33,6 @@ fi
 # devtools
 curl https://mise.run | sh
 
-# Source mise to make it available in current shell
-eval "$($HOME/.local/bin/mise activate zsh)"
-
 mise use neovim
 mise use tmux
 mise use kubectl
