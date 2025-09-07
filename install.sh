@@ -7,6 +7,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Change to that directory
 cd "$SCRIPT_DIR"
 
+# Reload zsh to apply changes
+exec zsh
+
 # Install stow based on platform
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS
