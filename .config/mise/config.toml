@@ -6,5 +6,3 @@ neovim = "latest"
 tmux = "latest"
 kubectl = "latest"
 fzf = "latest"
-
-ruby = "3.2.8"
