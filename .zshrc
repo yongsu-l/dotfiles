@@ -8,13 +8,15 @@ fi
 # tab completion
 autoload -Uz compinit && compinit
 
-export HISTFILE=$HOME/.cache/zsh/zsh_history
+export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000000
 export SAVEHIST=$HISTSIZE
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_FIND_NO_DUPS
+setopt SHARE_HISTORY
+setopt EXTENDED_HISTORY
 
 export PATH=$HOME/go/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
