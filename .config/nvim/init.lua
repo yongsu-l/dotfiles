@@ -233,7 +233,7 @@ require("lazy").setup({
 					typescript = {
 						tsserver = {
 							maxTsServerMemory = 8192,
-							nodePath = "/usr/local/bin/node",
+							-- nodePath = "/usr/local/bin/node", -- commented out since I don't think this is needed anymore
 						},
 					},
 				},
