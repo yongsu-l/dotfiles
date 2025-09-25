@@ -23,6 +23,8 @@ export PATH=$HOME/dotfiles/.gitbin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
 
+export TERM=xterm-256color
+
 export GOPATH=$HOME/go
 
 eval "$(~/.local/bin/mise activate zsh)"
@@ -77,6 +79,7 @@ alias tf='tofu'
 alias ls='ls -F'
 alias ll='ls -llh'
 alias grep='rg'
+alias claude="$HOME/.claude/local/claude"
 
 source $HOME/powerlevel10k/powerlevel10k.zsh-theme
 
@@ -89,3 +92,4 @@ export RACK_ENV=development
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
