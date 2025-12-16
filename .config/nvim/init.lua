@@ -149,14 +149,14 @@ require("lazy").setup({
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("fzf-lua").setup({
-				"hide",
+				-- "hide",
 				-- "default",
 				-- defaults = { formatter = "path.filename_first", git_icons = false },
-				-- git = {
-				-- 	branches = {
-				-- 		cmd = "git branch --color",
-				-- 	},
-				-- },
+				git = {
+					branches = {
+						cmd = "git branch --color",
+					},
+				},
 				-- send grep'd things to quickfix list
 				keymap = {
 					fzf = {
@@ -228,19 +228,9 @@ require("lazy").setup({
 					["rubyLsp.bundleGemfile"] = "./Gemfile",
 				},
 			})
-			vim.lsp.config("vtsls", {
-				settings = {
-					typescript = {
-						tsserver = {
-							maxTsServerMemory = 8192,
-							-- nodePath = "/usr/local/bin/node", -- commented out since I don't think this is needed anymore
-						},
-					},
-				},
-			})
 
 			require("mason-lspconfig").setup({
-				ensure_installed = { "gopls", "ruby_lsp", "vtsls" },
+				ensure_installed = { "gopls", "ruby_lsp", "tsgo" },
 			})
 		end,
 	},
@@ -272,8 +262,8 @@ require("lazy").setup({
 			require("conform").setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
-					javascript = { "prettier" },
-					typescript = { "prettier" },
+					javascript = { "prettier", "eslint" },
+					typescript = { "prettier", "eslint" },
 					ruby = { "prettier" },
 				},
 				format_after_save = {

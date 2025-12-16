@@ -70,7 +70,7 @@ function ff() {
 
 # auth
 alias avd='unset AWS_VAULT && access aws exec devenv01-admin'
-alias avg='unset AWS_VAULT && access aws exec gov-readonly'
+alias avg='unset AWS_VAULT && access aws exec gov-admin'
 alias avs='unset AWS_VAULT && access aws exec staging-compute-admin'
 alias avp='unset AWS_VAULT && access aws exec production-compute-admin'
 
@@ -81,6 +81,7 @@ alias tf='tofu'
 alias ls='ls -F'
 alias ll='ls -llh'
 alias grep='rg'
+alias claude="/Users/ylee/.claude/local/claude"
 
 source $HOME/powerlevel10k/powerlevel10k.zsh-theme
 
@@ -90,6 +91,14 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig:/usr/local/opt
 
 eval "$(rbenv init -)"
 export RACK_ENV=development
+
+# fbd - delete git branch (including remote branches)
+git-fzf-delete() {
+  local branches branch
+  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
+  branch=$(echo "$branches" | fzf --multi ) &&
+  git branch -D $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
