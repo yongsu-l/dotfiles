@@ -217,6 +217,7 @@ require("lazy").setup({
 		},
 		config = function(_, opts)
 			vim.lsp.config("gopls", {
+				cmd = { "gopls", "-remote=auto" },
 				settings = {
 					gopls = {
 						["build.buildFlags"] = { "-mod=readonly" },
@@ -285,5 +286,9 @@ require("lazy").setup({
 		config = function(_, opts)
 			require("fidget").setup(opts)
 		end,
+	},
+	{
+		-- automated bullet list for markdown. intentionally not using vim-markdown since we don't need all the features
+		"bullets-vim/bullets.vim",
 	},
 })
