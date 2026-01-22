@@ -7,3 +7,5 @@
 .config/ranger/plugins/
 .ccls-cache
 .DS_STORE
+.local/bin/claude
+.local/bin/mise
