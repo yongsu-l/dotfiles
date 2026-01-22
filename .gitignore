@@ -6,3 +6,4 @@
 .config/ranger/__pycache__/
 .config/ranger/plugins/
 .ccls-cache
+.DS_STORE

@@ -81,7 +81,6 @@ alias tf='tofu'
 alias ls='ls -F'
 alias ll='ls -llh'
 alias grep='rg'
-alias claude="/Users/ylee/.claude/local/claude"
 
 source $HOME/powerlevel10k/powerlevel10k.zsh-theme
 
