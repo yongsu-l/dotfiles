@@ -29,6 +29,7 @@ export TERM=xterm-256color
 
 export GOPATH=$HOME/go
 
+export MISE_CONFIG_DIR=$HOME/.config/mise
 eval "$(~/.local/bin/mise activate zsh)"
 
 set -o vi
