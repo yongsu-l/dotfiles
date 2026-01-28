@@ -1,0 +1,8 @@
+pullRequest:
+    branchNamePrefix: "ylee/"
+
+    # open prs in draft
+    # draft: true
+
+    # don't open my browser
+    openBrowser: false
